@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastrointestinal Cancer Prevention Protocol for Hereditary GI Cancers</title>
+<style>
+  :root{
+    --ink:#1c1b18;
+    --ink-soft:#4a4843;
+    --ink-faint:#76736b;
+    --line:#e4e1d7;
+    --line-soft:#efece3;
+    --paper:#ffffff;
+    --cream:#faf8f2;
+    --teal:#0f6e56;
+    --teal-bg:#e1f5ee;
+    --teal-line:#5dcaa5;
+    --blue:#185fa5;
+    --blue-bg:#e6f1fb;
+    --blue-line:#85b7eb;
+    --amber:#854f0b;
+    --amber-bg:#faeeda;
+    --amber-line:#ef9f27;
+    --red:#a32d2d;
+    --red-bg:#fcebeb;
+    --red-line:#f09595;
+    --purple:#3c3489;
+    --purple-bg:#eeedfe;
+    --radius:14px;
+    --radius-sm:9px;
+  }
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.62;
+    font-size:17px;
+  }
+  .wrap{ max-width:860px; margin:0 auto; padding:0 22px 90px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    padding:54px 0 30px;
+    border-bottom:3px double var(--line);
+    margin-bottom:8px;
+  }
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:12px;
+    font-weight:600;
+    color:var(--teal);
+    margin:0 0 16px;
+  }
+  h1.title{
+    font-size:38px;
+    line-height:1.16;
+    font-weight:600;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  .standfirst{
+    font-size:19px;
+    color:var(--ink-soft);
+    margin:0 0 22px;
+    line-height:1.55;
+  }
+  .authors{
+    margin:0 0 24px;
+    padding:16px 20px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--teal);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .authors .byline{
+    margin:0 0 6px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .authors .affil{
+    margin:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    color:var(--ink-faint);
+    line-height:1.5;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    color:var(--ink-faint);
+    align-items:center;
+  }
+  .meta-row .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:5px 13px;
+  }
+  .meta-row .chip i{ color:var(--teal); }
+
+  /* ---------- Audience legend ---------- */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:14px;
+    margin:26px 0 6px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+  }
+  .legend .key{ display:flex; align-items:center; gap:8px; color:var(--ink-soft); }
+  .swatch{ width:14px; height:14px; border-radius:4px; flex:none; }
+  .sw-patient{ background:var(--teal-bg); border:1.5px solid var(--teal-line); }
+  .sw-clinician{ background:var(--paper); border:1.5px solid var(--line); }
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 26px;
+    margin:30px 0 46px;
+  }
+  nav.toc h2{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase; letter-spacing:.14em;
+    font-size:12px; font-weight:700; color:var(--ink-faint);
+    margin:0 0 14px;
+  }
+  nav.toc ol{ margin:0; padding:0; list-style:none; counter-reset:toc;
+    column-count:2; column-gap:34px; }
+  nav.toc li{ counter-increment:toc; margin:0 0 9px; break-inside:avoid; }
+  nav.toc a{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14.5px; color:var(--ink-soft); text-decoration:none;
+    display:flex; gap:10px; align-items:baseline;
+  }
+  nav.toc a:hover{ color:var(--teal); }
+  nav.toc a::before{
+    content:counter(toc,decimal-leading-zero);
+    color:var(--teal); font-weight:600; font-size:12px; flex:none;
+  }
+
+  /* ---------- Section ---------- */
+  section{ margin:0 0 14px; padding:30px 0 8px; border-top:1px solid var(--line-soft); }
+  section:first-of-type{ border-top:none; }
+  .sec-head{ display:flex; align-items:center; gap:14px; margin:0 0 20px; }
+  .sec-num{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px; font-weight:700; color:var(--paper);
+    background:var(--teal); width:34px; height:34px; flex:none;
+    border-radius:9px; display:flex; align-items:center; justify-content:center;
+  }
+  h2.sec-title{ font-size:27px; font-weight:600; margin:0; letter-spacing:-0.01em; line-height:1.2; }
+  h3{ font-size:20px; font-weight:600; margin:30px 0 10px; }
+  h4{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--teal); margin:24px 0 8px;
+  }
+  p{ margin:0 0 15px; }
+  a{ color:var(--blue); }
+
+  /* ---------- Patient summary card ---------- */
+  .patient-card{
+    background:var(--teal-bg);
+    border:1px solid var(--teal-line);
+    border-radius:var(--radius);
+    padding:20px 24px;
+    margin:0 0 26px;
+  }
+  .patient-card .lbl{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    text-transform:uppercase; letter-spacing:.12em;
+    font-size:11.5px; font-weight:700; color:var(--teal);
+    display:flex; align-items:center; gap:7px; margin:0 0 9px;
+  }
+  .patient-card p{ margin:0; color:#0c4f3f; font-size:16.5px; }
+  .patient-card p + p{ margin-top:10px; }
+
+  /* ---------- Clinical detail block ---------- */
+  .clinical{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15.5px;
+    line-height:1.62;
+    color:var(--ink-soft);
+  }
+  .clinical h4{ margin-top:18px; }
+  .clinical p{ margin:0 0 13px; }
+
+  /* ---------- Recommendation callout ---------- */
+  .rec{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--teal);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:15px 20px;
+    margin:0 0 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px;
+  }
+  .rec .rlbl{ font-weight:700; color:var(--teal); display:block; margin-bottom:4px;
+    text-transform:uppercase; letter-spacing:.05em; font-size:12px; }
+
+  /* ---------- Lists ---------- */
+  ul.ticks{ list-style:none; margin:0 0 16px; padding:0;
+    font-family:"Helvetica Neue",Arial,sans-serif; font-size:15px; }
+  ul.ticks li{ position:relative; padding:5px 0 5px 28px; color:var(--ink-soft);
+    border-bottom:1px solid var(--line-soft); }
+  ul.ticks li:last-child{ border-bottom:none; }
+  ul.ticks li i{ position:absolute; left:0; top:7px; color:var(--teal); font-size:18px; }
+
+  /* ---------- Risk table ---------- */
+  .table-wrap{ overflow-x:auto; margin:0 0 10px; border:1px solid var(--line);
+    border-radius:var(--radius-sm); }
+  table.risk{ border-collapse:collapse; width:100%; min-width:560px;
+    font-family:"Helvetica Neue",Arial,sans-serif; font-size:14.5px; }
+  table.risk thead th{ background:var(--teal); color:#fff; font-weight:600;
+    text-align:left; padding:12px 14px; font-size:13.5px; }
+  table.risk thead th:first-child{ border-top-left-radius:var(--radius-sm); }
+  table.risk thead th:last-child{ border-top-right-radius:var(--radius-sm); }
+  table.risk td{ padding:10px 14px; border-top:1px solid var(--line); color:var(--ink-soft); }
+  table.risk tbody tr:nth-child(odd){ background:var(--cream); }
+  table.risk td:first-child{ font-weight:600; color:var(--ink); }
+  .pct{ font-variant-numeric:tabular-nums; }
+
+  /* ---------- Bleeding risk tiers ---------- */
+  .tiers{ display:grid; grid-template-columns:1fr; gap:14px; margin:8px 0 20px; }
+  @media(min-width:680px){ .tiers{ grid-template-columns:repeat(3,1fr); } }
+  .tier{ border-radius:var(--radius-sm); padding:16px 18px;
+    font-family:"Helvetica Neue",Arial,sans-serif; }
+  .tier h5{ margin:0 0 10px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .tier ul{ margin:0; padding:0; list-style:none; font-size:13.5px; line-height:1.5; }
+  .tier li{ padding:4px 0; border-top:1px solid rgba(0,0,0,.06); }
+  .tier li:first-child{ border-top:none; }
+  .tier.low{ background:var(--teal-bg); }
+  .tier.low h5{ color:var(--teal); } .tier.low li{ color:#0c4f3f; }
+  .tier.mod{ background:var(--amber-bg); }
+  .tier.mod h5{ color:var(--amber); } .tier.mod li{ color:#633806; }
+  .tier.high{ background:var(--red-bg); }
+  .tier.high h5{ color:var(--red); } .tier.high li{ color:#791f1f; }
+
+  /* ---------- Calculator box ---------- */
+  .calc{
+    background:var(--blue-bg); border:1px solid var(--blue-line);
+    border-radius:var(--radius); padding:20px 24px; margin:0 0 22px;
+  }
+  .calc .lbl{ font-family:"Helvetica Neue",Arial,sans-serif; text-transform:uppercase;
+    letter-spacing:.1em; font-size:11.5px; font-weight:700; color:var(--blue);
+    display:flex; align-items:center; gap:7px; margin:0 0 10px; }
+  .calc p{ color:#0c447c; font-family:"Helvetica Neue",Arial,sans-serif; font-size:15px; }
+  .calc a{ color:var(--blue); word-break:break-all; font-weight:600; }
+  .calc .bands{ list-style:none; margin:12px 0 0; padding:0;
+    font-family:"Helvetica Neue",Arial,sans-serif; font-size:14px; }
+  .calc .bands li{ padding:7px 0 7px 26px; position:relative; color:#0c447c;
+    border-top:1px solid var(--blue-line); }
+  .calc .bands li:first-child{ border-top:none; }
+  .calc .bands li i{ position:absolute; left:0; top:8px; font-size:16px; }
+  .dot-red{ color:var(--red); } .dot-amber{ color:var(--amber); } .dot-teal{ color:var(--teal); }
+
+  /* ---------- Summary section cards ---------- */
+  .summary-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  @media(min-width:680px){ .summary-grid{ grid-template-columns:1fr 1fr; } }
+  .sum-card{ background:var(--paper); border:1px solid var(--line);
+    border-radius:var(--radius-sm); padding:16px 20px;
+    font-family:"Helvetica Neue",Arial,sans-serif; }
+  .sum-card.span{ grid-column:1/-1; }
+  .sum-card h5{ margin:0 0 10px; font-size:14px; font-weight:700; color:var(--teal);
+    display:flex; align-items:center; gap:8px; }
+  .sum-card p{ font-size:14px; color:var(--ink-soft); margin:0 0 8px; line-height:1.55; }
+  .sum-card p:last-child{ margin-bottom:0; }
+  .sum-card .gene{ font-weight:700; color:var(--ink); }
+
+  /* ---------- References ---------- */
+  .refs{ counter-reset:ref; list-style:none; margin:0; padding:0;
+    font-family:"Helvetica Neue",Arial,sans-serif; font-size:13.5px; color:var(--ink-soft);
+    line-height:1.5; }
+  .refs li{ counter-increment:ref; position:relative; padding:9px 0 9px 38px;
+    border-top:1px solid var(--line-soft); }
+  .refs li:first-child{ border-top:none; }
+  .refs li::before{ content:counter(ref); position:absolute; left:0; top:9px;
+    font-weight:700; color:var(--teal); background:var(--teal-bg);
+    width:26px; height:22px; border-radius:6px; display:flex; align-items:center;
+    justify-content:center; font-size:12px; }
+
+  .footer-note{ margin-top:40px; padding-top:20px; border-top:3px double var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif; font-size:12.5px; color:var(--ink-faint);
+    line-height:1.55; }
+  hr.soft{ border:none; border-top:1px solid var(--line-soft); margin:26px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="eyebrow">Clinical Prevention Protocol</p>
+    <h1 class="title">Gastrointestinal Cancer Prevention for Hereditary GI Cancers</h1>
+    <p class="standfirst">A practical, evidence-based protocol for screening, chemoprevention, and lifestyle risk reduction in Lynch syndrome, PMS2 carriers, and CMMRD &mdash; written so clinicians and patients can read the same document.</p>
+    <div class="authors">
+      <p class="byline">Dr. Andrew Shuen, MD PhD FRCPC DABMGG &nbsp;&middot;&nbsp; Dr. William Foulkes, MBBS PhD FRCPC &nbsp;&middot;&nbsp; Dr. Polymnia Galiatsatos, MD CM FRCPC</p>
+      <p class="affil">Dr. Shuen and Dr. Foulkes: Cancer Genetics, Cancer Prevention Centre &mdash; Jewish General Hospital (JGH), Montreal. Dr. Galiatsatos: Division of Gastroenterology &mdash; Jewish General Hospital (JGH), Montreal.</p>
+    </div>
+    <div class="meta-row">
+      <span class="chip"><i class="ti ti-dna-2"></i> Lynch &middot; PMS2 &middot; CMMRD</span>
+      <span class="chip"><i class="ti ti-stethoscope"></i> Surveillance &amp; chemoprevention</span>
+      <span class="chip"><i class="ti ti-books"></i> 18 references</span>
+    </div>
+    <div class="legend">
+      <span class="key"><span class="swatch sw-patient"></span> Green panels &mdash; plain-language summary for patients</span>
+      <span class="key"><span class="swatch sw-clinician"></span> White text &mdash; clinical detail for providers</span>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>In this protocol</h2>
+    <ol>
+      <li><a href="#intro">Understanding the conditions</a></li>
+      <li><a href="#risks">Lifetime cancer risks</a></li>
+      <li><a href="#screening">Screening: MLH1, MSH2, MSH6, EPCAM</a></li>
+      <li><a href="#pms2">Screening: PMS2 carriers</a></li>
+      <li><a href="#aspirin">Aspirin chemoprevention</a></li>
+      <li><a href="#counselling">Genetic counselling</a></li>
+      <li><a href="#microbiome">Microbiome &amp; gut health</a></li>
+      <li><a href="#hrt">Hormone replacement therapy</a></li>
+      <li><a href="#microplastics">Microplastics &amp; environment</a></li>
+      <li><a href="#lifestyle">Lifestyle &amp; nutrition</a></li>
+      <li><a href="#summary">Summary of recommendations</a></li>
+      <li><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 INTRO -->
+  <section id="intro">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Understanding the conditions</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-heart-handshake"></i> What this means for you</p>
+      <p>Lynch syndrome is an inherited condition that raises your lifetime chance of certain cancers &mdash; most often of the bowel and womb &mdash; and tends to cause them at younger ages. Knowing you carry it is powerful: regular check-ups, a daily medication for some people, and everyday habits can lower that risk substantially and catch anything early, when it is most treatable.</p>
+    </div>
+
+    <h3>Lynch syndrome</h3>
+    <div class="clinical">
+      <p>Lynch syndrome is a hereditary cancer predisposition syndrome caused by germline mutations in one of the DNA mismatch repair (MMR) genes &mdash; MLH1, MSH2, MSH6, PMS2 &mdash; or deletions in the EPCAM gene that lead to silencing of MSH2. The MMR system corrects errors arising during DNA replication, such as base mismatches and insertion-deletion loops. When this repair is impaired by a pathogenic variant, errors accumulate, particularly in repetitive sequences known as microsatellites, producing microsatellite instability (MSI). This genomic instability promotes carcinogenesis.</p>
+      <p>Individuals face significantly elevated lifetime risks for multiple cancers, most notably colorectal and endometrial. Risk is also increased for ovary, stomach, small intestine, hepatobiliary tract, urinary tract (especially upper-tract urothelial carcinoma), brain (usually glioblastoma), pancreas, and certain skin tumors (particularly sebaceous neoplasms). These cancers tend to occur at younger ages than in the general population and often show distinct molecular features such as MSI and loss of MMR protein expression.</p>
+    </div>
+
+    <h3>CMMRD</h3>
+    <div class="clinical">
+      <p>Constitutional mismatch repair deficiency (CMMRD) is a rare disorder caused by biallelic pathogenic variants in the MMR genes (MLH1, MSH2, MSH6, PMS2). It produces defective mismatch repair in all tissues, with genomic instability and a markedly increased cancer risk. Affected individuals typically develop cancers in childhood or early adulthood &mdash; colorectal, brain, and hematological malignancies (leukemia, lymphoma) among others. Penetrance approaches 100%.</p>
+    </div>
+  </section>
+
+  <!-- 2 RISKS -->
+  <section id="risks">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Lifetime cancer risks</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-info-circle"></i> How to read this</p>
+      <p>The numbers below are lifetime estimates, and they differ depending on which gene is involved. Higher numbers simply mean screening matters more for that organ &mdash; they are not a prediction that cancer will happen. Your own risk depends on your gene, your family history, and the prevention steps you take.</p>
+    </div>
+
+    <h4>General lifetime cancer risks by gene (approximate ranges)</h4>
+    <div class="table-wrap">
+      <table class="risk">
+        <thead><tr><th>Cancer type</th><th>MLH1</th><th>MSH2 / EPCAM</th><th>MSH6</th><th>PMS2</th></tr></thead>
+        <tbody>
+          <tr><td>Colorectal (CRC)</td><td class="pct">40&ndash;60%</td><td class="pct">40&ndash;60%</td><td class="pct">20&ndash;44%</td><td class="pct">10&ndash;20%</td></tr>
+          <tr><td>Endometrial (uterine)</td><td class="pct">35&ndash;55%</td><td class="pct">25&ndash;49%</td><td class="pct">16&ndash;49%</td><td class="pct">13&ndash;26%</td></tr>
+          <tr><td>Ovarian</td><td class="pct">4&ndash;20%</td><td class="pct">8&ndash;38%</td><td class="pct">~1&ndash;11%</td><td class="pct">&lt;5%</td></tr>
+          <tr><td>Stomach</td><td class="pct">5&ndash;7%</td><td class="pct">2&ndash;13%</td><td class="pct">&lt;1%</td><td class="pct">&lt;1%</td></tr>
+          <tr><td>Small intestine</td><td class="pct">~4&ndash;11%</td><td class="pct">~4&ndash;11%</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Hepatobiliary tract</td><td class="pct">~2&ndash;4%</td><td class="pct">~2&ndash;4%</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Urinary tract</td><td class="pct">0.2&ndash;4%</td><td class="pct">4&ndash;28% (upper tract)</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Pancreas</td><td class="pct">~1&ndash;6%</td><td class="pct">~1&ndash;6%</td><td class="pct">&lt;1%</td><td class="pct">&lt;1%</td></tr>
+          <tr><td>Brain (glioblastoma)</td><td class="pct">~1&ndash;4%</td><td class="pct">~1&ndash;4%</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Sebaceous skin tumors</td><td colspan="4">Rare (except MSH2/EPCAM with Muir-Torre variant, ~6&ndash;14%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3 SCREENING -->
+  <section id="screening">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Screening &amp; prevention: MSH2, MLH1, MSH6, EPCAM</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-calendar-check"></i> Your screening at a glance</p>
+      <p>The cornerstone is a regular colonoscopy, usually starting in your early twenties and repeated every one to two years &mdash; it both finds and removes pre-cancerous growths. Depending on your gene and family history, your team may add checks for the womb and ovaries, stomach, urinary tract, and others. Each one is described below with the recommended starting age and frequency.</p>
+    </div>
+
+    <h3>Colorectal cancer</h3>
+    <div class="clinical">
+      <p>Colonoscopy starting at age 20&ndash;25, or 2&ndash;5 years earlier than the youngest case in the family, whichever comes first. Repeat every 1&ndash;2 years. Consider total colectomy for colon cancer or multiple adenomas not manageable endoscopically. [1, 2]</p>
+    </div>
+
+    <h3>Endometrial and ovarian cancer (females)</h3>
+    <div class="clinical">
+      <p>The two interventions that meaningfully affect outcome are <strong>patient education on abnormal uterine bleeding</strong> (most Lynch endometrial cancers present with bleeding at an early, curable stage) and <strong>risk-reducing hysterectomy with bilateral salpingo-oophorectomy (BSO)</strong> after completion of childbearing, typically ages 35&ndash;45, particularly in MLH1 or MSH2 carriers. These should be the primary recommendations.</p>
+      <p>Transvaginal ultrasound and endometrial biopsy are <strong>optional and of limited value</strong>: neither has been shown to reduce endometrial cancer mortality in Lynch syndrome, TVUS performs poorly in premenopausal women, and biopsy carries false-negative and tolerability limitations. If performed at all, surveillance is every 1&ndash;2 years from 30&ndash;35 years, framed as a shared-decision option rather than a routine recommendation. [1, 2]</p>
+    </div>
+
+    <h3>Gastric and small bowel cancers</h3>
+    <div class="clinical">
+      <p>EGD with gastric biopsy for H. pylori at age 30&ndash;35. Repeat every 2&ndash;4 years depending on findings and family history. Consider duodenoscopy with a family history of small bowel cancer. [3]</p>
+    </div>
+
+    <h3>Urinary tract cancer</h3>
+    <div class="clinical">
+      <p>Elevated urothelial cancer risk is largely confined to <strong>MSH2 carriers</strong> (and is low in MLH1, MSH6, and PMS2), so any surveillance applies chiefly to that group. Available tests are weak: urinalysis and urine cytology have low sensitivity and specificity, microscopic hematuria is common and nonspecific, and no approach has been shown to reduce mortality. Where surveillance is offered to MSH2 carriers, it is reasonable to consider annual urinalysis from 30&ndash;35 years as an <strong>optional, evidence-limited, shared-decision</strong> measure rather than a routine recommendation, with cytology or upper-tract imaging reserved for a strong family history or symptoms. [1, 2]</p>
+    </div>
+
+    <h3>Pancreatic cancer</h3>
+    <div class="clinical">
+      <p>Screen only if a first-degree relative has pancreatic cancer. Annual MRCP or EUS starting at age 50, or 10 years earlier than the youngest case. [1, 2]</p>
+    </div>
+
+    <h3>Prostate cancer (males)</h3>
+    <div class="clinical">
+      <p>Annual PSA testing beginning at age 40, especially in MSH2 or MLH1 carriers. [1, 2]</p>
+    </div>
+
+    <h3>Brain cancer</h3>
+    <div class="clinical">
+      <p>No routine surveillance. Consider MRI only with family history or neurologic symptoms. [1, 2]</p>
+    </div>
+  </section>
+
+  <!-- 4 PMS2 -->
+  <section id="pms2">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Screening &amp; prevention: PMS2 carriers</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-shield-half"></i> A lower-risk gene</p>
+      <p>PMS2 carries a more modest cancer risk than the other Lynch genes, so the plan is lighter. Colonoscopy remains central, but several of the additional screens are not routinely needed unless your family history points to them. Your team will tailor the plan to you.</p>
+    </div>
+
+    <h3>Colorectal cancer</h3>
+    <div class="clinical"><p>Begin colonoscopy at age 25&ndash;30 years, repeating every 1&ndash;2 years based on findings. [1, 2]</p></div>
+
+    <h3>Endometrial cancer (females)</h3>
+    <div class="clinical"><p>Educate on symptoms such as abnormal vaginal bleeding. Routine endometrial biopsy or transvaginal ultrasound is not typically recommended due to lower risk than other Lynch genes. Consider prophylactic hysterectomy on an individualized basis after childbearing. [1, 2]</p></div>
+
+    <h3>Ovarian cancer (females)</h3>
+    <div class="clinical"><p>Routine screening is not recommended. Educate about ovarian cancer symptoms. Prophylactic salpingo-oophorectomy is individualized and typically not recommended solely for PMS2. [1, 2]</p></div>
+
+    <h3>Other sites</h3>
+    <div class="clinical">
+      <p><strong>Gastric and small bowel:</strong> no routine surveillance unless strong family history. [1, 2]</p>
+      <p><strong>Urinary tract, pancreatic, prostate:</strong> routine screening not indicated unless a specific family history. [1, 2]</p>
+      <p><strong>Brain:</strong> no routine surveillance unless specific family history or symptoms. [1, 2]</p>
+    </div>
+  </section>
+
+  <!-- 5 ASPIRIN -->
+  <section id="aspirin">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Aspirin chemoprevention</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-pill"></i> A daily tablet that lowers risk</p>
+      <p>A low daily dose of aspirin has been shown to reduce bowel cancer risk in Lynch syndrome. It is not right for everyone &mdash; the main trade-off is a small increase in bleeding risk &mdash; so your clinician will weigh the benefit against your personal bleeding risk before recommending it, and review it each year.</p>
+    </div>
+
+    <h4>Background</h4>
+    <div class="clinical">
+      <p>Aspirin reduces colorectal cancer risk through several mechanisms. Its primary effect is inhibition of cyclooxygenase (COX) enzymes &mdash; particularly COX-2 &mdash; which drive inflammation and are often overexpressed in colorectal tumors. By reducing COX-mediated prostaglandin production, aspirin dampens chronic colonic inflammation, a known contributor to tumorigenesis. It may also induce apoptosis, inhibit proliferation, and impair platelet-mediated tumor growth and metastasis.</p>
+      <p>The CAPP2 trial in Lynch syndrome first showed that aspirin 600 mg daily for at least 2 years significantly lowers the incidence of colorectal and other Lynch-associated cancers, an effect that did not become apparent until about 5 years from commencement and persisted for over a decade. The dose-finding question was then addressed by the CaPP3 non-inferiority trial (reported 2025), which compared 75&ndash;100 mg, 300 mg, and 600 mg daily in Lynch carriers: the lowest dose (75&ndash;100 mg) was as effective as the higher doses, with fewer bleeding and gastrointestinal adverse events. Low-dose aspirin is therefore now the preferred chemopreventive dose on the basis of this evidence. Major guidelines already advise that Lynch carriers <em>consider</em> daily aspirin for CRC prevention; the specific low-dose figure is supported by the CaPP3 data and is in the process of being incorporated into formal society and formulary recommendations rather than being long-codified. Risk&ndash;benefit evaluation is essential before initiating, particularly for gastrointestinal bleeding.</p>
+    </div>
+
+    <div class="rec">
+      <span class="rlbl">Recommendation</span>
+      Recommend low-dose aspirin for colorectal and Lynch-associated cancer risk reduction. In Canada the available low-dose formulation is <strong>81 mg</strong> (the equivalent of the 75&ndash;100 mg range studied in CaPP3); 100 mg tablets are not a standard Canadian retail dose. Begin in the mid-20s to 30s if tolerated. Reassess at least annually for gastrointestinal and bleeding risk. Because the benefit emerges only after roughly 5 years and bleeding risk rises with both treatment duration and age (especially over 65), aspirin should be reviewed periodically as the patient ages and treatment lengthens; the strongest current evidence covers a roughly 2&ndash;5 year horizon, and longer-term continuation can be re-evaluated as extended follow-up data mature. [3]
+    </div>
+
+    <h3>Assessing bleeding risk</h3>
+    <div class="tiers">
+      <div class="tier low">
+        <h5><i class="ti ti-circle-check"></i> Low risk</h5>
+        <ul>
+          <li>Age &lt;70</li>
+          <li>No prior GI bleed or peptic ulcer</li>
+          <li>No hemorrhagic stroke or bleeding disorder</li>
+          <li>Not on anticoagulants / multiple antiplatelets</li>
+          <li>Normal CBC, liver and kidney function</li>
+        </ul>
+      </div>
+      <div class="tier mod">
+        <h5><i class="ti ti-alert-triangle"></i> Moderate risk</h5>
+        <ul>
+          <li>Age 70&ndash;75</li>
+          <li>Prior ulcer/gastritis, no recent GI bleed</li>
+          <li>One added risk med (NSAID, low-dose AC)</li>
+          <li>Mild thrombocytopenia or mild&ndash;moderate CKD (uremic platelet dysfunction raises bleeding risk)</li>
+          <li>Uncontrolled hypertension (elevated hemorrhagic stroke risk; control BP before/while on antiplatelet)</li>
+          <li>Consider PPI co-prescription; monitor closely</li>
+        </ul>
+      </div>
+      <div class="tier high">
+        <h5><i class="ti ti-circle-x"></i> High risk</h5>
+        <ul>
+          <li>Age &gt;75 with frailty</li>
+          <li>Major GI bleed or hemorrhagic stroke</li>
+          <li>Active peptic ulcer or cirrhosis</li>
+          <li>Plt &lt;100, Hb &lt;100 g/L, or INR &gt;1.5 off AC</li>
+          <li>Anticoagulation + multiple risk meds</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Bleeding risk calculator</h3>
+    <div class="calc">
+      <p class="lbl"><i class="ti ti-calculator"></i> NZ Aspirin Benefit-Harm Calculator</p>
+      <p>The New Zealand Aspirin Benefit-Harm Calculator (Selak et al.) estimates an individual&rsquo;s 5-year risk of a first cardiovascular event and of a major bleed, both with and without aspirin, quantifying the net benefit or harm of aspirin for primary prevention to support shared decision-making. It is derived from sex-specific Cox proportional hazards models built on a contemporary New Zealand primary-care cohort of over 385,000 people without established cardiovascular disease, and it accounts for concurrent medications and comorbidities. Note that the underlying data are New Zealand-based and may not fully generalize elsewhere.</p>
+      <p style="margin-top:12px;"><i class="ti ti-external-link" style="vertical-align:-2px"></i> <a href="https://aspirinbenefitharmcalculator.shinyapps.io/calculator/">aspirinbenefitharmcalculator.shinyapps.io/calculator</a></p>
+      <ul class="bands">
+        <li><i class="ti ti-circle-x dot-red"></i> <strong>Net harm</strong> &mdash; excess major bleeds outweigh prevented CV events: caution or avoid aspirin.</li>
+        <li><i class="ti ti-circle-half-2 dot-amber"></i> <strong>Net neutral / marginal</strong> &mdash; shared decision-making, weighing the Lynch-specific CRC chemoprevention benefit alongside the CV estimate.</li>
+        <li><i class="ti ti-circle-check dot-teal"></i> <strong>Net benefit</strong> &mdash; prevented CV events outweigh excess bleeds: aspirin generally favorable.</li>
+      </ul>
+    </div>
+    <div class="clinical">
+      <p>Because this tool estimates cardiovascular benefit-harm rather than cancer-specific benefit, in Lynch syndrome the colorectal cancer risk reduction should be considered an additional benefit on top of the calculator output when making the final recommendation.</p>
+    </div>
+  </section>
+
+  <!-- 6 COUNSELLING -->
+  <section id="counselling">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Genetic counselling</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-users-group"></i> Sharing this with family</p>
+      <p>Because Lynch syndrome runs in families, your relatives may benefit from testing too &mdash; called cascade testing. Counselling also covers family-planning options if you wish to explore them, and keeping your family history up to date so your plan stays right for you over time.</p>
+    </div>
+    <div class="clinical">
+      <p>Offer genetic counselling at diagnosis and to all at-risk relatives (cascade testing). Discuss reproductive options including PGT-M for known pathogenic variants. Discuss partner carrier testing for the risk of constitutional mismatch repair deficiency (CMMRD). Maintain and update family pedigrees, and reassess risk if new cancers occur or family history evolves. [1, 2]</p>
+    </div>
+  </section>
+
+  <!-- 7 MICROBIOME -->
+  <section id="microbiome">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Microbiome &amp; gut health</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-bacteria"></i> The bacteria in your gut</p>
+      <p>The mix of bacteria living in your bowel can influence cancer risk. Treating a stomach bug called H. pylori, eating more fibre and fermented foods, and good oral hygiene all help tip the balance toward protective bacteria. Some patients may benefit from specialised microbiome testing.</p>
+    </div>
+
+    <h4>Background</h4>
+    <div class="clinical">
+      <p>The gut microbiome influences colorectal cancer development via inflammation, immune regulation, and metabolism of dietary and host-derived compounds. Dysbiosis is associated with increased pro-carcinogenic species such as Fusobacterium nucleatum, Escherichia coli (harboring the pks genomic island), and enterotoxigenic Bacteroides fragilis, which can promote DNA damage, chronic inflammation, and immune evasion. A reduction in beneficial short-chain fatty-acid producers like Faecalibacterium prausnitzii may impair mucosal barrier integrity. Microbiota-derived metabolites such as secondary bile acids can exert genotoxic effects on colonic epithelium. Composition and function of the microbiota are thus increasingly recognized as both biomarkers of CRC risk and targets for prevention.</p>
+    </div>
+
+    <div class="rec">
+      <span class="rlbl">Recommendation</span>
+      Test for H. pylori every 2&ndash;4 years; treat confirmed cases with standard triple therapy (clarithromycin, amoxicillin, PPI) or quadruple therapy (bismuth, metronidazole, tetracycline, PPI) for 14 days. Confirm eradication after treatment.
+    </div>
+
+    <div class="clinical">
+      <p>Consider advanced microbiome screening for DNA-damaging or pro-tumor microbes linked to CRC:</p>
+    </div>
+    <ul class="ticks">
+      <li><i class="ti ti-point"></i> <strong>pks&#8314; Escherichia coli</strong> &mdash; produces colibactin, a genotoxin linked to increased CRC risk. [4-6]</li>
+      <li><i class="ti ti-point"></i> <strong>Enterotoxigenic Bacteroides fragilis (ETBF)</strong> &mdash; secretes toxins promoting mucosal inflammation and DNA damage. [7]</li>
+      <li><i class="ti ti-point"></i> <strong>Fusobacterium nucleatum</strong> &mdash; linked to inflammation, immune evasion, tumor progression, aggressive CRC.</li>
+      <li><i class="ti ti-point"></i> <strong>Helicobacter pylori</strong> &mdash; strongly associated with gastric cancer risk; eradicate if detected. [8]</li>
+    </ul>
+
+    <div class="clinical">
+      <p>Detection should prompt gut-targeted strategies: increase dietary fiber; incorporate prebiotics and probiotics (e.g. <a href="https://www.vsl3.com/">vsl3.com</a>, <a href="https://www.seed.com">seed.com</a>, <a href="https://www.pendulum.com">pendulum.com</a>); increase polyphenol-rich foods; enhance oral hygiene to reduce oral Fusobacterium reservoirs; and consider targeted antimicrobial therapy or microbiome modulation under clinical guidance.</p>
+    </div>
+
+    <h3>Immunotherapy and the microbiome</h3>
+    <div class="clinical">
+      <p>The gut microbiome modulates the immune response to cancer and influences the efficacy of immune checkpoint inhibitors (ICIs) such as anti-PD-1 and anti-CTLA-4. Commensals including Akkermansia muciniphila, Bifidobacterium species, and Faecalibacterium prausnitzii are associated with improved ICI responses by enhancing antigen presentation, promoting T-cell infiltration, and modulating systemic inflammation. Dysbiosis or prior antibiotics can impair efficacy. FMT from responders into germ-free mice restores checkpoint sensitivity, underscoring a causative role. Trials are exploring probiotics, prebiotics, diet, and FMT as adjuncts.</p>
+    </div>
+    <div class="rec">
+      <span class="rlbl">Recommendation</span>
+      Optimize the microbiome before ICI therapy with probiotic-rich and fermented foods (yogurt, kefir, sauerkraut, kimchi, kombucha). Measure Akkermansia muciniphila; raise levels via dietary fiber, polyphenol-rich foods, and prebiotics, with supplementation if low. [9-11] Measure colon inflammation and microbial diversity.
+    </div>
+  </section>
+
+  <!-- 8 HRT -->
+  <section id="hrt">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Hormone replacement therapy</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-temperature"></i> After risk-reducing surgery</p>
+      <p>If you have your ovaries removed before natural menopause, hormone replacement therapy can protect your heart, bones, and quality of life. Reassuringly, it does not appear to raise bowel cancer risk in Lynch syndrome. The right choice is individual and your team will guide it.</p>
+    </div>
+
+    <h4>Background</h4>
+    <div class="clinical">
+      <p>HRT is an important consideration for women undergoing risk-reducing hysterectomy and BSO before natural menopause. Premature estrogen loss increases risks of cardiovascular disease, osteoporosis, cognitive decline, and reduced quality of life. Current evidence suggests HRT does not increase colorectal cancer risk &mdash; the primary Lynch-associated cancer &mdash; and may be protective. Estrogen-alone therapy is generally preferred after hysterectomy; combined estrogen-progestin is needed with an intact uterus to prevent endometrial hyperplasia. HRT should be individualized by age, time since surgery, and personal and family cancer history. Without a history of hormone-sensitive cancer such as breast cancer, short-to-intermediate-term HRT is considered safe and beneficial.</p>
+    </div>
+    <div class="rec">
+      <span class="rlbl">No personal cancer history</span>
+      HRT is generally recommended after prophylactic BSO in premenopausal women, especially under 50, to manage symptoms and prevent osteoporosis and cardiovascular disease. Typically continue until natural menopause age (~50&ndash;51 years).
+    </div>
+    <div class="rec">
+      <span class="rlbl">Personal cancer history</span>
+      Individualized by cancer type, stage, histology, and recurrence risk. Early-stage, low-risk endometrial or ovarian cancers may allow cautious HRT after oncology consultation. Non-hormonal management is preferred in most cases.
+    </div>
+  </section>
+
+  <!-- 9 MICROPLASTICS -->
+  <section id="microplastics">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Microplastics &amp; environment</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-recycle"></i> Small everyday swaps</p>
+      <p>Tiny plastic particles in food and water may add to bowel cancer risk. A few simple changes &mdash; filtered tap water instead of bottled, glass or steel containers, and never microwaving food in plastic &mdash; reduce your exposure with little effort.</p>
+    </div>
+
+    <h4>Background</h4>
+    <div class="clinical">
+      <p>Microplastics &mdash; particles less than 5 mm in diameter &mdash; are increasingly recognized as environmental toxins that may contribute to colorectal carcinogenesis. Ingested via contaminated food, water, and inhalation, they can accumulate in the GI tract. Preclinical studies show they induce oxidative stress, DNA damage, and inflammation in colonic epithelium, and may disrupt the microbiome by promoting dysbiosis and pro-inflammatory species. Animal models show exacerbated intestinal barrier dysfunction and increased susceptibility to chemically induced colon tumors. Human evidence is emerging, but biological plausibility suggests chronic exposure may be a modifiable risk factor.</p>
+    </div>
+    <div class="rec">
+      <span class="rlbl">Recommendation</span>
+      Educate patients about microplastics. Encourage filtered water; avoid bottled water; avoid reheating food in plastic; replace plastic cutting boards with wood; minimize single-use plastics; use glass or stainless steel containers; and avoid food wrapped in plastic wrap. [12, 13]
+    </div>
+  </section>
+
+  <!-- 10 LIFESTYLE -->
+  <section id="lifestyle">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Lifestyle &amp; nutrition</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-salad"></i> Everyday prevention</p>
+      <p>What you eat and how you live genuinely move the needle. A Mediterranean-style diet, regular movement, good sleep, no tobacco, limited alcohol, and a few well-chosen supplements all lower bowel cancer risk and support overall health.</p>
+    </div>
+
+    <div class="clinical">
+      <p>Adopt a Mediterranean-style diet rich in vegetables, fruits, legumes, nuts, healthy fats (especially olive oil), and fish. Emphasize plant-based whole foods and probiotic-rich foods such as fermented vegetables, yogurt, kefir, and kombucha.</p>
+      <p>Avoid dietary carcinogens: red meat, processed meats with nitrates/nitrites, and smoked, barbecued, grilled, fried, or heavily baked foods. Avoid added sugars, sugar-sweetened beverages, and refined carbohydrates. Encourage avoidance of alcohol.</p>
+      <p>Maintain optimal body fat: men 8&ndash;15%, women 16&ndash;20%. Circadian optimization: encourage early time-restricted feeding (10&ndash;12 h window, e.g. 8 AM&ndash;6 PM); consider a 6&ndash;8 h window if weight loss is a goal. [14-17] Engage in at least 150 minutes/week of moderate-intensity exercise. Avoid tobacco. Prioritize sleep and stress management.</p>
+    </div>
+
+    <h3>Supplements</h3>
+    <ul class="ticks">
+      <li><i class="ti ti-droplet"></i> <strong>Omega-3 fatty acids</strong> &mdash; 2&ndash;3 g/day EPA + DHA; measure baseline omega-3 index. [18]</li>
+      <li><i class="ti ti-sun"></i> <strong>Vitamin D &amp; calcium</strong> &mdash; target serum 25(OH)D of 125 nmol/L (50 ng/mL); total calcium 1000&ndash;1200 mg/day, calcium citrate if diet insufficient.</li>
+      <li><i class="ti ti-plant-2"></i> <strong>Fiber</strong> &mdash; at least 25&ndash;35 g/day to reduce colorectal cancer risk.</li>
+    </ul>
+  </section>
+
+  <!-- 11 SUMMARY -->
+  <section id="summary">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Summary of recommendations</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-clipboard-check"></i> The whole plan on one page</p>
+      <p>Everything above, condensed into a quick-reference card you can keep or share with another clinician.</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="sum-card span">
+        <h5><i class="ti ti-microscope"></i> Cancer screening</h5>
+        <p><span class="gene">Colon:</span> MSH2/MLH1/MSH6/EPCAM &mdash; colonoscopy from 20&ndash;25 (or 2&ndash;5 y before youngest case), every 1&ndash;2 y; consider colectomy if unmanageable. PMS2 &mdash; from 25&ndash;30, every 1&ndash;2 y.</p>
+        <p><span class="gene">Endometrial/ovarian:</span> MSH2/MLH1/MSH6/EPCAM &mdash; educate on bleeding + risk-reducing hysterectomy/BSO after childbearing (35&ndash;45) as primary; TVUS + biopsy optional and low-yield (no mortality benefit shown). PMS2 &mdash; routine biopsy/TVUS not recommended; individualized hysterectomy.</p>
+        <p><span class="gene">Gastric/small bowel:</span> MSH2/MLH1/MSH6/EPCAM &mdash; EGD + gastric biopsy at 30&ndash;35 for H. pylori, every 2&ndash;4 y; duodenoscopy if family history. PMS2 &mdash; none unless strong family history.</p>
+        <p><span class="gene">Urinary tract:</span> elevated risk mainly in MSH2 &mdash; optional, evidence-limited annual urinalysis from 30&ndash;35 in MSH2 carriers (low sensitivity, no mortality benefit). Other genes &mdash; none unless family history.</p>
+        <p><span class="gene">Pancreatic:</span> all genes &mdash; only with an affected first-degree relative; annual MRCP/EUS from 50 (or 10 y before youngest case). <span class="gene">Prostate:</span> annual PSA from 40. <span class="gene">Brain:</span> no routine MRI unless family history/symptoms.</p>
+      </div>
+
+      <div class="sum-card span">
+        <h5><i class="ti ti-bell"></i> Periodic surveillance reminders</h5>
+        <p>Beyond colonoscopy, do not overlook the recurring extracolonic surveillance, tailored by gene and family history:</p>
+        <p><span class="gene">Urinary (MSH2 mainly):</span> optional, evidence-limited annual urinalysis from 30&ndash;35 in MSH2 carriers; cytology/upper-tract imaging only for strong family history or symptoms. <span class="gene">Upper GI:</span> EGD with gastric biopsy for H. pylori at 30&ndash;35, every 2&ndash;4 y; duodenoscopy if small-bowel family history. <span class="gene">Gynecologic (females):</span> annual symptom review and prompt assessment of abnormal bleeding are the priority; endometrial sampling and/or TVUS every 1&ndash;2 y from 30&ndash;35 only where opted for, until risk-reducing hysterectomy/BSO.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-pill"></i> Aspirin chemoprevention</h5>
+        <p>Low-dose aspirin from mid-20s to 30s if tolerated; in Canada use <strong>81 mg/day</strong> (equivalent to the 75&ndash;100 mg studied in CaPP3, which was as effective as higher doses with fewer bleeds).</p>
+        <p>Assess CV benefit and bleeding harm at least annually with the NZ Aspirin Benefit-Harm Calculator, adding the Lynch-specific CRC benefit. Reassess as treatment duration and age increase (benefit emerges ~5 y; bleeding risk rises, especially over 65). Strongest evidence covers ~2&ndash;5 y; re-evaluate longer use as data mature. Avoid in high bleeding risk (age &gt;75, prior GI bleed, thrombocytopenia, cirrhosis).</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-users-group"></i> Genetic counselling</h5>
+        <p>Offer at diagnosis and to all at-risk relatives (cascade testing).</p>
+        <p>Discuss PGT-M, partner carrier testing (CMMRD risk), and maintain the pedigree.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-salad"></i> Lifestyle, diet &amp; supplements</h5>
+        <p>Mediterranean diet; avoid red/processed meats, added sugars, alcohol, plastic food containers.</p>
+        <p>Body fat (men 10&ndash;20%, women 18&ndash;28%); waist &lt;94 cm men, &lt;80 cm women. Early time-restricted feeding (10&ndash;12 h). Exercise &ge;150 min/week. No tobacco; prioritize sleep and stress.</p>
+        <p>Omega-3 2&ndash;3 g/day; vitamin D target 125 nmol/L; calcium 1000&ndash;1200 mg/day; fiber 25&ndash;35 g/day.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-bacteria"></i> Microbiome optimization</h5>
+        <p>Test and eradicate H. pylori every 2&ndash;4 y. Screen for pro-tumor microbes: pks&#8314; E. coli, ETBF, F. nucleatum, H. pylori.</p>
+        <p>Manage dysbiosis with high fiber, pre/probiotics, polyphenols, oral hygiene, and antimicrobials if needed.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-vaccine"></i> Immunotherapy prep</h5>
+        <p>Optimize the microbiome before ICI therapy.</p>
+        <p>Include probiotic/fermented foods. Boost Akkermansia muciniphila via fiber, polyphenols, prebiotics; supplement if low.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-temperature"></i> HRT (females)</h5>
+        <p>No cancer history: recommend HRT after premenopausal BSO, especially before 50, until natural menopause.</p>
+        <p>With cancer history: individualized with oncology input. Estrogen-only if hysterectomy; combined if uterus intact. Avoid if hormone-sensitive cancer unless benefits outweigh risks.</p>
+      </div>
+
+      <div class="sum-card">
+        <h5><i class="ti ti-recycle"></i> Environment &mdash; microplastics</h5>
+        <p>Educate on risks. Encourage filtered water; avoid bottled water and plastic containers; switch to glass/steel; avoid food reheated in plastic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <section id="refs">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">References</h2></div>
+    <ol class="refs">
+      <li>Hodan R, et al. Genetic/Familial High-Risk Assessment: Colorectal, Endometrial, and Gastric, Version 3.2024, NCCN Clinical Practice Guidelines in Oncology. J Natl Compr Canc Netw. 2024;22(10):695&ndash;711.</li>
+      <li>Novotn&yacute; J, et al. Guidelines for clinical practice for carriers of germline mutations in the Lynch syndrome predisposition genes MLH1, MSH2, MSH6, PMS2 and large deletions of EPCAM (4.2024). Klin Onkol. 2024;37(5):384&ndash;389.</li>
+      <li>Burn J, et al. Cancer prevention with aspirin in hereditary colorectal cancer (Lynch syndrome), 10-year follow-up and registry-based 20-year data in the CAPP2 study: a double-blind, randomised, placebo-controlled trial. Lancet. 2020;395(10240):1855&ndash;1863.</li>
+      <li>Chen B, et al. Contribution of pks(+) E. coli mutations to colorectal carcinogenesis. Nat Commun. 2023;14(1):7827.</li>
+      <li>Cornish AJ, et al. The genomic landscape of 2,023 colorectal cancers. Nature. 2024;633(8028):127&ndash;136.</li>
+      <li>Pleguezuelos-Manzano C, et al. Mutational signature in colorectal cancer caused by genotoxic pks+ E. coli. Nature. 2020;580(7802):269&ndash;273.</li>
+      <li>Jasemi S, et al. Biological Mechanisms of Enterotoxigenic Bacteroides fragilis Toxin: Linking Inflammation, Colorectal Cancer, and Clinical Implications. Toxins (Basel). 2025;17(6).</li>
+      <li>Malfertheiner P, et al. Management of Helicobacter pylori infection: the Maastricht VI/Florence consensus report. Gut. 2022.</li>
+      <li>Matson V, et al. The commensal microbiome is associated with anti-PD-1 efficacy in metastatic melanoma patients. Science. 2018;359(6371):104&ndash;108.</li>
+      <li>Routy B, et al. Gut microbiome influences efficacy of PD-1-based immunotherapy against epithelial tumors. Science. 2018;359(6371):91&ndash;97.</li>
+      <li>Gopalakrishnan V, et al. Gut microbiome modulates response to anti-PD-1 immunotherapy in melanoma patients. Science. 2018;359(6371):97&ndash;103.</li>
+      <li>Scuto M, et al. Microplastics as Emerging Contaminants and Human Health: Exploring Functional Nutrition in Gastric-Colon-Brain Axis Cancer. Toxics. 2025;13(6).</li>
+      <li>Chartres N, et al. Effects of Microplastic Exposure on Human Digestive, Reproductive, and Respiratory Health: A Rapid Systematic Review. Environ Sci Technol. 2024;58(52):22843&ndash;22864.</li>
+      <li>Chaix A, et al. Time-Restricted Eating to Prevent and Manage Chronic Metabolic Diseases. Annu Rev Nutr. 2019;39:291&ndash;315.</li>
+      <li>Manoogian ENC, et al. Time-restricted Eating for the Prevention and Management of Metabolic Diseases. Endocr Rev. 2022;43(2):405&ndash;436.</li>
+      <li>Sun JC, et al. Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr. 2023;77(11):1014&ndash;1025.</li>
+      <li>Jamshed H, et al. Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med. 2022;182(9):953&ndash;962.</li>
+      <li>Choucair K, et al. Phase II trial of moderate dose omega-3 acid ethyl esters for colorectal cancer prevention in patients with Lynch syndrome (COLYNE). J Clin Oncol. 2022;40(4_suppl):TPS209.</li>
+      <li>Burn J, et al. CaPP3: a randomised, double-blind, dose non-inferiority trial of daily aspirin (600 mg vs 300 mg vs 75&ndash;100 mg) for cancer prevention in Lynch syndrome. Results reported 2025; low dose (75&ndash;100 mg) non-inferior to higher doses with fewer adverse events.</li>
+    </ol>
+  </section>
+
+  <p class="footer-note">
+    This protocol is intended to support, not replace, individualized clinical judgment and shared decision-making. Recommendations should be applied in the context of each patient&rsquo;s gene, personal and family history, and local guidelines. The NZ Aspirin Benefit-Harm Calculator is derived from a New Zealand primary-care cohort and may not fully generalize to other populations.
+  </p>
+
+</div>
+</body>
+</html>
