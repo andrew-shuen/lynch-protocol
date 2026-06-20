@@ -7,25 +7,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
 <style>
   :root{
-    --ink:#1c1b18;
-    --ink-soft:#4a4843;
-    --ink-faint:#76736b;
-    --line:#e4e1d7;
-    --line-soft:#efece3;
+    --ink:#15212b;
+    --ink-soft:#3c4a55;
+    --ink-faint:#6a7681;
+    --line:#dde6ec;
+    --line-soft:#eef3f6;
     --paper:#ffffff;
-    --cream:#faf8f2;
-    --teal:#0f6e56;
-    --teal-bg:#e1f5ee;
-    --teal-line:#5dcaa5;
-    --blue:#185fa5;
-    --blue-bg:#e6f1fb;
-    --blue-line:#85b7eb;
-    --amber:#854f0b;
-    --amber-bg:#faeeda;
-    --amber-line:#ef9f27;
-    --red:#a32d2d;
-    --red-bg:#fcebeb;
-    --red-line:#f09595;
+    --cream:#f4f9fc;
+    --teal:#0083d0; --brand:#0083d0; --brand-line:#9cd0ef; --brand-bg:#e3f2fb;
+    --teal-bg:#e3f2fb;
+    --teal-line:#9cd0ef;
+    --blue:#005f9e;
+    --blue-bg:#e3f2fb;
+    --blue-line:#9cd0ef;
+    --amber:#9a5b00;
+    --amber-bg:#fdf0db;
+    --amber-line:#f0a93a;
+    --red:#b3271e;
+    --red-bg:#fcebe9;
+    --red-line:#f0a097;
     --purple:#3c3489;
     --purple-bg:#eeedfe;
     --purple-line:#b3aef0;
@@ -208,7 +208,7 @@
     font-size:11.5px; font-weight:700; color:var(--teal);
     display:flex; align-items:center; gap:7px; margin:0 0 9px;
   }
-  .patient-card p{ margin:0; color:#0c4f3f; font-size:16.5px; }
+  .patient-card p{ margin:0; color:#004a7c; font-size:16.5px; }
   .patient-card p + p{ margin-top:10px; }
 
   /* ---------- Clinical detail block ---------- */
@@ -280,7 +280,7 @@
   .tier li{ padding:4px 0; border-top:1px solid rgba(0,0,0,.06); }
   .tier li:first-child{ border-top:none; }
   .tier.low{ background:var(--teal-bg); }
-  .tier.low h5{ color:var(--teal); } .tier.low li{ color:#0c4f3f; }
+  .tier.low h5{ color:var(--teal); } .tier.low li{ color:#004a7c; }
   .tier.mod{ background:var(--amber-bg); }
   .tier.mod h5{ color:var(--amber); } .tier.mod li{ color:#633806; }
   .tier.high{ background:var(--red-bg); }
@@ -294,11 +294,11 @@
   .calc .lbl{ font-family:"Helvetica Neue",Arial,sans-serif; text-transform:uppercase;
     letter-spacing:.1em; font-size:11.5px; font-weight:700; color:var(--blue);
     display:flex; align-items:center; gap:7px; margin:0 0 10px; }
-  .calc p{ color:#0c447c; font-family:"Helvetica Neue",Arial,sans-serif; font-size:15px; }
+  .calc p{ color:#005f9e; font-family:"Helvetica Neue",Arial,sans-serif; font-size:15px; }
   .calc a{ color:var(--blue); word-break:break-all; font-weight:600; }
   .calc .bands{ list-style:none; margin:12px 0 0; padding:0;
     font-family:"Helvetica Neue",Arial,sans-serif; font-size:14px; }
-  .calc .bands li{ padding:7px 0 7px 26px; position:relative; color:#0c447c;
+  .calc .bands li{ padding:7px 0 7px 26px; position:relative; color:#005f9e;
     border-top:1px solid var(--blue-line); }
   .calc .bands li:first-child{ border-top:none; }
   .calc .bands li i{ position:absolute; left:0; top:8px; font-size:16px; }
@@ -345,10 +345,30 @@
     font-family:"Helvetica Neue",Arial,sans-serif; font-size:12.5px; color:var(--ink-faint);
     line-height:1.55; }
   hr.soft{ border:none; border-top:1px solid var(--line-soft); margin:26px 0; }
+
+  /* ---------- Language toggle ---------- */
+  .lang-bar{ position:sticky; top:0; z-index:50; display:flex; gap:8px; justify-content:flex-end;
+    padding:10px 0; background:linear-gradient(var(--cream) 70%, rgba(244,249,252,0)); margin-bottom:-8px; }
+  .lang-btn{ font-family:"Helvetica Neue",Arial,sans-serif; font-size:13px; font-weight:700;
+    letter-spacing:.03em; cursor:pointer; border:1px solid var(--brand-line,#9cd0ef);
+    background:var(--paper); color:var(--brand,#0083d0); border-radius:30px; padding:6px 16px;
+    transition:all .15s ease; }
+  .lang-btn:hover{ background:var(--brand-bg,#e3f2fb); }
+  .lang-btn.active{ background:var(--brand,#0083d0); color:#fff; border-color:var(--brand,#0083d0); }
+  [hidden]{ display:none !important; }
+  @media print{ .lang-bar{ display:none; } }
 </style>
 </head>
 <body>
 <div class="wrap">
+
+  <div class="lang-bar">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+    <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">Fran&ccedil;ais</button>
+  </div>
+
+  <div id="lang-en">
+
 
   <!-- MASTHEAD -->
   <header class="masthead">
@@ -867,7 +887,550 @@
   <p class="footer-note">
     This protocol is intended to support, not replace, individualized clinical judgment and shared decision-making. Recommendations should be applied in the context of each patient&rsquo;s gene, personal and family history, and local guidelines. Gene-specific risk estimates are approximate and evolving. The NZ Aspirin Benefit-Harm Calculator is derived from a New Zealand primary-care cohort and may not fully generalize to other populations. Emerging and investigational approaches are not standard care and should be pursued through clinical trials.
   </p>
+  </div>
 
+  <div id="lang-fr" hidden>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="eyebrow">Protocole clinique de prévention</p>
+    <h1 class="title">Protocole de prévention et de surveillance du cancer lié au syndrome de Lynch</h1>
+    <p class="standfirst">Un protocole pratique et fondé sur des données probantes pour le dépistage propre au gène, la chimioprévention, la chirurgie de réduction du risque et la réduction du risque par les habitudes de vie dans le syndrome de Lynch, chez les porteurs de PMS2 et dans le déficit constitutionnel de réparation des mésappariements (CMMRD) &mdash; rédigé pour que les cliniciens et les patients puissent lire le même document.</p>
+    <div class="authors">
+      <p class="byline">Dr Andrew Shuen, MD PhD FRCPC DABMGG &nbsp;&middot;&nbsp; Dr William Foulkes, MBBS PhD FRCPC &nbsp;&middot;&nbsp; Dre Polymnia Galiatsatos, MD CM FRCPC</p>
+      <p class="affil">Dr Shuen et Dr Foulkes : Génétique du cancer, Centre de prévention du cancer &mdash; Hôpital général juif (HGJ), Montréal. Dre Galiatsatos : Division de gastroentérologie &mdash; Hôpital général juif (HGJ), Montréal.</p>
+    </div>
+    <div class="meta-row">
+      <span class="chip"><i class="ti ti-dna-2"></i> Surveillance selon le gène</span>
+      <span class="chip"><i class="ti ti-stethoscope"></i> Chimioprévention et chirurgie</span>
+      <span class="chip"><i class="ti ti-books"></i> Fondé sur des données probantes</span>
+    </div>
+    <div class="legend">
+      <span class="key"><span class="swatch sw-patient"></span> Panneaux colorés &mdash; résumé en langage simple pour les patients</span>
+      <span class="key"><span class="swatch sw-clinician"></span> Texte blanc &mdash; détails cliniques pour les professionnels</span>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>Dans ce protocole</h2>
+    <ol>
+      <li><a href="#fr-intro">Comprendre les affections</a></li>
+      <li><a href="#fr-risks">Risques de cancer à vie selon le gène</a></li>
+      <li><a href="#fr-mlh1">Syndrome de Lynch lié à MLH1</a></li>
+      <li><a href="#fr-msh2">Syndrome de Lynch lié à MSH2/EPCAM</a></li>
+      <li><a href="#fr-msh6">Syndrome de Lynch lié à MSH6</a></li>
+      <li><a href="#fr-pms2">Syndrome de Lynch lié à PMS2</a></li>
+      <li><a href="#fr-surgery">Chirurgie de réduction du risque et THS</a></li>
+      <li><a href="#fr-aspirin">Chimioprévention par l'aspirine</a></li>
+      <li><a href="#fr-counselling">Conseil génétique</a></li>
+      <li><a href="#fr-lifestyle">Habitudes de vie et nutrition</a></li>
+      <li><a href="#fr-microbiome">Microbiome et santé intestinale</a></li>
+      <li><a href="#fr-cancer">Patients atteints de cancer : microbiome et immunothérapie</a></li>
+      <li><a href="#fr-emerging">Prévention émergente et expérimentale</a></li>
+      <li><a href="#fr-summary">Résumé des recommandations</a></li>
+      <li><a href="#fr-refs">Références</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 INTRO -->
+  <section id="fr-intro">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Comprendre les affections</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-heart-handshake"></i> Ce que cela signifie pour vous</p>
+      <p>Le syndrome de Lynch est une affection héréditaire qui augmente votre risque, au cours de la vie, de certains cancers, le plus souvent de l'intestin et de l'utérus, et qui tend à les provoquer à un âge plus jeune. Les risques exacts dépendent du gène en cause, donc votre plan de dépistage est adapté à votre gène précis. Les examens réguliers, un médicament quotidien pour certaines personnes, la chirurgie de réduction du risque lorsqu'elle est indiquée et les habitudes de vie peuvent abaisser ce risque de façon importante et permettre de détecter tôt tout problème, au moment où il est le plus traitable.</p>
+    </div>
+
+    <h3>Syndrome de Lynch</h3>
+    <div class="clinical">
+      <p>Le syndrome de Lynch est un syndrome héréditaire de prédisposition au cancer causé par des mutations germinales dans l'un des gènes de réparation des mésappariements de l'ADN (MMR) &mdash; MLH1, MSH2, MSH6, PMS2 &mdash; ou par des délétions du gène EPCAM qui entraînent l'inactivation de MSH2. Le système MMR corrige les erreurs survenant pendant la réplication de l'ADN, comme les mésappariements de bases et les boucles d'insertion-délétion. Lorsque cette réparation est compromise par un variant pathogène, les erreurs s'accumulent, surtout dans les séquences répétitives appelées microsatellites, produisant une instabilité microsatellitaire (MSI). Cette instabilité génomique favorise la cancérogenèse.</p>
+      <p>Fait important, le risque de cancer à vie diffère sensiblement selon le gène. MLH1 et MSH2 comportent les risques les plus élevés; MSH6 confère un risque élevé de cancer de l'endomètre mais un risque colorectal plus faible et plus tardif; et PMS2 comporte les risques les plus bas des quatre. La surveillance doit donc être propre au gène plutôt qu'uniforme, et les sections ci-dessous sont organisées en conséquence.</p>
+    </div>
+
+    <h3>CMMRD</h3>
+    <div class="clinical">
+      <p>Le déficit constitutionnel de réparation des mésappariements (CMMRD) est une affection rare causée par des variants pathogènes bialléliques des gènes MMR (MLH1, MSH2, MSH6, PMS2). Il entraîne une réparation déficiente des mésappariements dans tous les tissus, avec une instabilité génomique et un risque de cancer nettement accru. Les personnes atteintes développent généralement des cancers durant l'enfance ou au début de l'âge adulte (cancers colorectaux, cérébraux et hématologiques comme la leucémie et le lymphome), entre autres. La pénétrance approche 100 %. Le CMMRD exige un protocole de surveillance distinct et intensif débutant en pédiatrie, qui dépasse la portée de ce document destiné aux adultes et doit être pris en charge dans un centre spécialisé.</p>
+    </div>
+  </section>
+
+  <!-- 2 RISKS -->
+  <section id="fr-risks">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Risques de cancer à vie selon le gène</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-info-circle"></i> Comment lire ceci</p>
+      <p>Les chiffres ci-dessous sont des estimations sur la vie entière et varient selon le gène en cause. Des chiffres plus élevés signifient que le dépistage compte davantage pour cet organe; ce ne sont pas une prédiction qu'un cancer surviendra. Votre risque personnel dépend de votre gène, de vos antécédents familiaux et des mesures de prévention que vous prenez.</p>
+    </div>
+
+    <h4>Risques de cancer à vie selon le gène (fourchettes approximatives)</h4>
+    <div class="table-wrap">
+      <table class="risk">
+        <thead><tr><th>Type de cancer</th><th>MLH1</th><th>MSH2 / EPCAM</th><th>MSH6</th><th>PMS2</th></tr></thead>
+        <tbody>
+          <tr><td>Colorectal (CCR)</td><td class="pct">40&ndash;60 %</td><td class="pct">40&ndash;60 %</td><td class="pct">20&ndash;44 %</td><td class="pct">10&ndash;20 %</td></tr>
+          <tr><td>Endomètre (utérus)</td><td class="pct">35&ndash;55 %</td><td class="pct">25&ndash;49 %</td><td class="pct">16&ndash;49 %</td><td class="pct">13&ndash;26 %</td></tr>
+          <tr><td>Ovaire</td><td class="pct">4&ndash;20 %</td><td class="pct">8&ndash;38 %</td><td class="pct">~1&ndash;11 %</td><td class="pct">&lt;5 %</td></tr>
+          <tr><td>Estomac</td><td class="pct">5&ndash;7 %</td><td class="pct">2&ndash;13 %</td><td class="pct">&lt;1 %</td><td class="pct">&lt;1 %</td></tr>
+          <tr><td>Intestin grêle</td><td class="pct">~4&ndash;11 %</td><td class="pct">~4&ndash;11 %</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Voies hépatobiliaires</td><td class="pct">~2&ndash;4 %</td><td class="pct">~2&ndash;4 %</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Voies urinaires</td><td class="pct">0,2&ndash;4 %</td><td class="pct">4&ndash;28 % (voies hautes)</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Pancréas</td><td class="pct">~1&ndash;6 %</td><td class="pct">~1&ndash;6 %</td><td class="pct">&lt;1 %</td><td class="pct">&lt;1 %</td></tr>
+          <tr><td>Cerveau (glioblastome)</td><td class="pct">~1&ndash;4 %</td><td class="pct">~1&ndash;4 %</td><td>Rare</td><td>Rare</td></tr>
+          <tr><td>Tumeurs cutanées sébacées</td><td colspan="4">Rare (sauf MSH2/EPCAM avec variante de Muir-Torre, ~6&ndash;14 %)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="clinical">
+      <p>Les quatre sections propres aux gènes qui suivent traduisent ces risques en surveillance concrète. La chirurgie gynécologique de réduction du risque et l'hormonothérapie substitutive sont traitées ensemble dans leur propre section, car les décisions sont communes aux gènes à risque élevé.</p>
+    </div>
+  </section>
+
+  <!-- 3 MLH1 -->
+  <section id="fr-mlh1">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Syndrome de Lynch lié à MLH1</h2></div>
+    <div class="gene-head"><span class="tag">MLH1</span><p class="gene-title">Groupe à risque le plus élevé, avec MSH2</p><span class="risk-pill hi">CCR 40&ndash;60 % &middot; Endomètre 35&ndash;55 %</span></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-calendar-check"></i> Votre dépistage en bref</p>
+      <p>MLH1 comporte l'un des risques de cancer les plus élevés, donc le dépistage est le plus intensif. La pierre angulaire est la coloscopie débutant au début de la vingtaine et répétée tous les un à deux ans. Les femmes planifient aussi une chirurgie gynécologique de réduction du risque après avoir eu des enfants (voir la section dédiée).</p>
+    </div>
+
+    <ul class="screen">
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Colorectal :</span> coloscopie dès 20&ndash;25 ans (ou 2&ndash;5 ans avant le cas le plus jeune de la famille), tous les 1&ndash;2 ans. Envisager une colectomie totale en cas de cancer ou d'adénomes non gérables par endoscopie. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Endomètre / ovaire :</span> éducation sur les saignements anormaux; hystérectomie + SOB de réduction du risque après les grossesses (voir section chirurgie). Échographie transvaginale/biopsie facultatives et de faible rendement. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Estomac / intestin grêle :</span> gastroscopie avec biopsie gastrique pour <i>H. pylori</i> à 30&ndash;35 ans, tous les 2&ndash;4 ans; envisager une duodénoscopie en cas d'antécédents familiaux d'intestin grêle. [3]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Pancréas :</span> seulement si un parent au premier degré est atteint &mdash; CPRM ou échoendoscopie annuelle dès 50 ans (ou 10 ans avant le cas le plus jeune). [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Prostate (hommes) :</span> APS annuel dès 40 ans. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Voies urinaires :</span> risque inférieur à MSH2 (0,2&ndash;4 %). Le NCCN note des données insuffisantes pour la surveillance; une analyse d'urine annuelle facultative dès 30&ndash;35 ans peut être envisagée, sinon investiguer les symptômes. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Peau (Muir-Torre) :</span> des néoplasmes sébacés et des kératoacanthomes surviennent dans le syndrome de Lynch (phénotype de Muir-Torre), MLH1 figurant parmi les gènes en cause. Envisager un examen cutané complet annuel, avec biopsie et orientation pour tout adénome/carcinome sébacé ou kératoacanthome. Les données sur l'intervalle optimal sont limitées; ceci relève du consensus d'experts. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Cerveau :</span> pas d'imagerie de routine; investiguer les symptômes neurologiques. [1, 2]</li>
+    </ul>
+  </section>
+
+  <!-- 4 MSH2 -->
+  <section id="fr-msh2">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Syndrome de Lynch lié à MSH2/EPCAM</h2></div>
+    <div class="gene-head"><span class="tag">MSH2 / EPCAM</span><p class="gene-title">Groupe à risque le plus élevé; le gène des voies urinaires</p><span class="risk-pill hi">CCR 40&ndash;60 % &middot; Urinaire jusqu'à 28 %</span></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-calendar-check"></i> Votre dépistage en bref</p>
+      <p>MSH2 comporte des risques de cancer aussi élevés que MLH1, avec un ajout important : c'est le gène le plus associé au cancer des voies urinaires, donc un dépistage urinaire est envisagé spécifiquement pour les porteurs de MSH2. La coloscopie demeure la pierre angulaire, et les femmes planifient une chirurgie gynécologique de réduction du risque après les grossesses.</p>
+    </div>
+
+    <ul class="screen">
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Colorectal :</span> coloscopie dès 20&ndash;25 ans (ou 2&ndash;5 ans avant le cas le plus jeune de la famille), tous les 1&ndash;2 ans. Envisager une colectomie totale si non gérable par endoscopie. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Endomètre / ovaire :</span> éducation sur les saignements anormaux; hystérectomie + SOB de réduction du risque après les grossesses (voir section chirurgie). Échographie transvaginale/biopsie facultatives et de faible rendement. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Estomac / intestin grêle :</span> gastroscopie avec biopsie gastrique pour <i>H. pylori</i> à 30&ndash;35 ans, tous les 2&ndash;4 ans; envisager une duodénoscopie en cas d'antécédents familiaux d'intestin grêle. [3]</li>
+      <li><i class="ti ti-alert-triangle"></i> <span class="organ">Voies urinaires :</span> risque le plus élevé pour MSH2 (4&ndash;28 %, voies hautes). Le NCCN note l'absence de données probantes claires en faveur de la surveillance mais mentionne, comme option, une analyse d'urine annuelle facultative dès 30&ndash;35 ans; il s'agit d'une décision partagée vu la faible sensibilité du test et l'absence de bénéfice démontré sur la mortalité. Cytologie ou imagerie des voies hautes en cas de symptômes ou d'antécédents familiaux marqués. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Pancréas :</span> seulement si un parent au premier degré est atteint &mdash; CPRM ou échoendoscopie annuelle dès 50 ans (ou 10 ans avant le cas le plus jeune). [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Prostate (hommes) :</span> APS annuel dès 40 ans. [1, 2]</li>
+      <li><i class="ti ti-alert-triangle"></i> <span class="organ">Peau (Muir-Torre) :</span> MSH2 est le gène le plus fortement associé au phénotype de Muir-Torre (adénomes sébacés, carcinomes sébacés, kératoacanthomes). Recommander un examen cutané complet annuel, avec seuil bas pour la biopsie et l'orientation des lésions suspectes. Les données sur l'intervalle optimal sont limitées; ceci relève du consensus d'experts. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Cerveau :</span> pas d'imagerie de routine; investiguer les symptômes neurologiques. [1, 2]</li>
+    </ul>
+    <div class="clinical">
+      <p>Les délétions d'EPCAM inactivent MSH2 et sont prises en charge comme un équivalent de MSH2, avec la réserve que le risque peut dépendre de l'étendue de la délétion; le risque gynécologique en particulier peut être plus faible chez certains porteurs d'EPCAM, à individualiser avec l'appui de la génétique.</p>
+    </div>
+  </section>
+
+  <!-- 5 MSH6 -->
+  <section id="fr-msh6">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Syndrome de Lynch lié à MSH6</h2></div>
+    <div class="gene-head"><span class="tag">MSH6</span><p class="gene-title">Prédominance endométriale; risque colorectal plus faible et plus tardif</p><span class="risk-pill mid">Endomètre 16&ndash;49 % &middot; CCR 20&ndash;44 %</span></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-calendar-check"></i> Votre dépistage en bref</p>
+      <p>MSH6 se comporte différemment de MLH1 et MSH2 : le risque de cancer de l'endomètre (utérus) est élevé, tandis que le risque de cancer de l'intestin est plus faible et tend à apparaître plus tard. Le dépistage en tient compte &mdash; la coloscopie peut souvent commencer un peu plus tard et la vigilance gynécologique est particulièrement importante.</p>
+    </div>
+
+    <ul class="screen">
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Colorectal :</span> selon le NCCN, coloscopie dès 30&ndash;35 ans (ou 2&ndash;5 ans avant le cas le plus jeune de la famille s'il est diagnostiqué avant 30 ans), tous les 1&ndash;3 ans, reflétant un risque plus faible et plus tardif que MLH1/MSH2. [1, 2]</li>
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Endomètre / ovaire :</span> le risque prédominant &mdash; forte éducation sur les saignements anormaux (qui se manifestent habituellement tôt et de façon curable); hystérectomie + SOB de réduction du risque après les grossesses (voir section chirurgie). [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Estomac / intestin grêle :</span> pas de surveillance de routine sauf antécédents familiaux marqués (risque &lt;1 %). [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Voies urinaires :</span> pas de surveillance de routine (rare). [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Peau (Muir-Torre) :</span> association plus faible que MSH2/MLH1. Aucun calendrier intensif requis; maintenir la vigilance et faire une biopsie/orientation de tout néoplasme sébacé ou kératoacanthome. Un examen cutané périodique est raisonnable. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Pancréas / prostate / cerveau :</span> pas de surveillance de routine dictée par le gène; gérer selon les antécédents familiaux et les symptômes. APS prostatique selon la discussion générale de risque élevé. [1, 2]</li>
+    </ul>
+  </section>
+
+  <!-- 6 PMS2 -->
+  <section id="fr-pms2">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Syndrome de Lynch lié à PMS2</h2></div>
+    <div class="gene-head"><span class="tag">PMS2</span><p class="gene-title">Groupe au risque le plus bas des quatre gènes</p><span class="risk-pill lo">CCR 10&ndash;20 % &middot; Endomètre 13&ndash;26 %</span></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-shield-half"></i> Un gène à risque plus faible</p>
+      <p>PMS2 comporte le risque de cancer le plus modeste des quatre gènes de Lynch, donc le plan est plus léger. La coloscopie demeure centrale, mais la plupart des autres dépistages d'organes ne sont pas requis de routine, sauf si vos antécédents familiaux l'indiquent.</p>
+    </div>
+
+    <ul class="screen">
+      <li><i class="ti ti-circle-check"></i> <span class="organ">Colorectal :</span> selon le NCCN, coloscopie dès 30&ndash;35 ans (ou 2&ndash;5 ans avant le cas le plus jeune de la famille s'il est diagnostiqué avant 30 ans), tous les 1&ndash;3 ans. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Endomètre :</span> éducation sur les saignements utérins anormaux, avec biopsie de l'endomètre pour évaluer les symptômes; pas de dépistage de routine par échographie/biopsie. Hystérectomie de réduction du risque envisagée au cas par cas après les grossesses (voir section chirurgie). [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Ovaire :</span> le NCCN note que les porteurs de PMS2 ne semblent pas présenter un risque de cancer de l'ovaire supérieur à la moyenne; la surveillance et l'ovariectomie de réduction du risque peuvent raisonnablement être différées. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Estomac / intestin grêle :</span> pas de surveillance de routine sauf antécédents familiaux marqués. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Voies urinaires :</span> pas de surveillance de routine sauf antécédents familiaux. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Peau (Muir-Torre) :</span> faible association. Pas de calendrier de routine; maintenir la vigilance et faire une biopsie/orientation de tout néoplasme sébacé ou kératoacanthome. [1, 2]</li>
+      <li><i class="ti ti-minus"></i> <span class="organ">Pancréas / prostate / cerveau :</span> pas de surveillance de routine dictée par le gène; gérer selon les antécédents familiaux et les symptômes. [1, 2]</li>
+    </ul>
+  </section>
+
+  <!-- 7 SURGERY + HRT -->
+  <section id="fr-surgery">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Chirurgie de réduction du risque et hormonothérapie substitutive</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-stethoscope"></i> La chirurgie et les hormones, ensemble</p>
+      <p>Pour les femmes atteintes du syndrome de Lynch, le retrait de l'utérus et des ovaires après les grossesses est le moyen le plus efficace de prévenir le cancer de l'utérus et de l'ovaire. Si les ovaires sont retirés avant la ménopause naturelle, l'hormonothérapie substitutive protège le cœur, les os et la qualité de vie &mdash; et, rassurant, n'augmente pas le risque de cancer de l'intestin dans le syndrome de Lynch. Ces deux décisions se planifient ensemble.</p>
+    </div>
+
+    <h3>Hystérectomie prophylactique et salpingo-ovariectomie bilatérale (SOB)</h3>
+    <div class="clinical">
+      <p>L'hystérectomie de réduction du risque avec SOB est l'intervention la plus efficace contre le cancer de l'endomètre et de l'ovaire dans le syndrome de Lynch et, contrairement à la surveillance, a un effet préventif clair. Le moment et la force de la recommandation dépendent du gène.</p>
+    </div>
+    <div class="rec">
+      <span class="rlbl">MLH1, MSH2/EPCAM</span>
+      Recommander l'hystérectomie + SOB après la fin des grossesses, généralement entre 40 et 45 ans (à individualiser), vu le risque élevé pour l'endomètre et un risque ovarien notable. Conseiller sur la ménopause chirurgicale et le THS avant l'opération.
+    </div>
+    <div class="rec amber">
+      <span class="rlbl">MSH6</span>
+      L'hystérectomie est raisonnable après les grossesses vu le risque élevé d'endomètre. Le NCCN note des données insuffisantes pour formuler une recommandation précise de SOB de réduction du risque pour MSH6; sinon, les indications rejoignent celles de MLH1/MSH2. Individualiser la décision ovarienne.
+    </div>
+    <div class="rec amber">
+      <span class="rlbl">PMS2</span>
+      Le NCCN note que les porteurs de PMS2 ne semblent pas présenter un risque ovarien supérieur à la moyenne et peuvent raisonnablement renoncer à l'ovariectomie et différer la surveillance; l'hystérectomie est individualisée. Pour celles qui optent pour la chirurgie/surveillance, les indications rejoignent celles de MLH1/MSH2. Décider avec la patiente et l'appui de la génétique.
+    </div>
+
+    <h3>Hormonothérapie substitutive après la ménopause chirurgicale</h3>
+    <div class="clinical">
+      <p>La perte précoce d'œstrogènes après une SOB avant la ménopause naturelle augmente le risque de maladie cardiovasculaire, d'ostéoporose, de déclin cognitif et nuit à la qualité de vie. Les données actuelles indiquent que le THS n'augmente pas le risque de cancer colorectal (le principal cancer associé à Lynch) et pourrait être protecteur. L'œstrogénothérapie seule est privilégiée après une hystérectomie; un traitement combiné œstrogène-progestatif n'est nécessaire que si l'utérus est en place. Le THS s'individualise selon l'âge, le temps écoulé depuis la chirurgie et les antécédents personnels et familiaux de cancer.</p>
+    </div>
+    <div class="rec">
+      <span class="rlbl">Aucun antécédent personnel de cancer</span>
+      Recommander le THS après une SOB préménopausique, surtout avant 50 ans, pour gérer les symptômes et protéger la santé osseuse et cardiovasculaire. Poursuivre généralement jusqu'à l'âge de la ménopause naturelle (~50&ndash;51 ans).
+    </div>
+    <div class="rec amber">
+      <span class="rlbl">Antécédent personnel de cancer</span>
+      Individualiser selon le type de cancer, le stade, l'histologie et le risque de récidive, avec l'appui de l'oncologie. Les cancers de l'endomètre ou de l'ovaire de stade précoce et à faible risque peuvent permettre un THS prudent; éviter dans les cancers hormonosensibles (p. ex. sein) sauf si les bénéfices l'emportent nettement. La prise en charge non hormonale des symptômes est privilégiée lorsque le THS est contre-indiqué.
+    </div>
+  </section>
+
+  <!-- 8 ASPIRIN -->
+  <section id="fr-aspirin">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Chimioprévention par l'aspirine</h2></div>
+
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-pill"></i> Un comprimé quotidien qui réduit le risque</p>
+      <p>Une faible dose quotidienne d'aspirine réduit le risque de cancer de l'intestin dans le syndrome de Lynch, pour tous les gènes. Elle ne convient pas à tout le monde &mdash; le principal compromis est une légère augmentation du risque de saignement &mdash; donc votre clinicien pèse le bénéfice par rapport à votre risque personnel de saignement avant de la recommander, et la réévalue chaque année.</p>
+    </div>
+
+    <h4>Contexte</h4>
+    <div class="clinical">
+      <p>L'aspirine réduit le risque de cancer colorectal par plusieurs mécanismes, principalement l'inhibition des enzymes cyclooxygénases (COX), surtout la COX-2, qui favorisent l'inflammation et sont souvent surexprimées dans les tumeurs colorectales. Elle peut aussi induire l'apoptose, inhiber la prolifération et entraver la croissance tumorale médiée par les plaquettes.</p>
+      <p>L'essai CAPP2 dans le syndrome de Lynch a d'abord montré que l'aspirine à 600 mg par jour pendant au moins 2 ans réduit significativement l'incidence des cancers colorectaux et autres cancers associés à Lynch, un effet qui n'est apparu qu'environ 5 ans après le début et qui a persisté plus d'une décennie. La question de la dose a ensuite été abordée par l'essai de non-infériorité CaPP3 (publié en 2025), comparant 75&ndash;100 mg, 300 mg et 600 mg par jour : la dose la plus faible était aussi efficace que les doses plus élevées, avec moins d'effets indésirables hémorragiques et gastro-intestinaux. La faible dose d'aspirine est donc maintenant la dose chimiopréventive privilégiée. Les grandes lignes directrices recommandent déjà que les porteurs de Lynch <em>envisagent</em> l'aspirine quotidienne; la dose précise est appuyée par CaPP3 et en voie d'intégration dans les recommandations officielles plutôt que codifiée de longue date. Une évaluation du rapport bénéfice-risque est essentielle avant l'instauration, surtout pour le saignement gastro-intestinal.</p>
+    </div>
+
+    <div class="rec">
+      <span class="rlbl">Recommandation</span>
+      Recommander une faible dose d'aspirine pour réduire le risque de cancer colorectal et de cancers associés à Lynch, pour MLH1, MSH2/EPCAM, MSH6 et PMS2. Au Canada, la formulation à faible dose offerte est de <strong>81 mg</strong> (équivalent à la fourchette de 75&ndash;100 mg étudiée dans CaPP3); les comprimés de 100 mg ne sont pas une dose courante au détail au Canada. Débuter du milieu de la vingtaine à la trentaine si toléré. Réévaluer au moins annuellement le risque gastro-intestinal et hémorragique. Comme le bénéfice n'apparaît qu'après environ 5 ans et que le risque de saignement augmente avec la durée du traitement et l'âge (surtout après 65 ans), réévaluer périodiquement l'aspirine à mesure que le patient vieillit et que le traitement se prolonge; les données les plus solides couvrent un horizon d'environ 2&ndash;5 ans, et la poursuite à plus long terme peut être réévaluée à mesure que les données de suivi prolongé évoluent. [3]
+    </div>
+
+    <h3>Évaluation du risque de saignement</h3>
+    <div class="tiers">
+      <div class="tier low">
+        <h5><i class="ti ti-circle-check"></i> Risque faible</h5>
+        <ul>
+          <li>Âge &lt;70 ans</li>
+          <li>Aucun antécédent de saignement GI ou d'ulcère gastroduodénal</li>
+          <li>Aucun AVC hémorragique ni trouble de la coagulation</li>
+          <li>Pas d'anticoagulants / antiplaquettaires multiples</li>
+          <li>FSC, fonction hépatique et rénale normales</li>
+        </ul>
+      </div>
+      <div class="tier mod">
+        <h5><i class="ti ti-alert-triangle"></i> Risque modéré</h5>
+        <ul>
+          <li>Âge 70&ndash;75 ans</li>
+          <li>Ulcère/gastrite antérieurs, sans saignement GI récent</li>
+          <li>Un médicament à risque ajouté (AINS, anticoagulant à faible dose)</li>
+          <li>Thrombocytopénie légère ou IRC légère à modérée (la dysfonction plaquettaire urémique accroît le risque de saignement)</li>
+          <li>Hypertension non maîtrisée (risque accru d'AVC hémorragique; maîtriser la TA avant/pendant l'antiplaquettaire)</li>
+          <li>Envisager la coprescription d'un IPP; surveiller de près</li>
+        </ul>
+      </div>
+      <div class="tier high">
+        <h5><i class="ti ti-circle-x"></i> Risque élevé</h5>
+        <ul>
+          <li>Âge &gt;75 ans avec fragilité</li>
+          <li>Saignement GI majeur ou AVC hémorragique</li>
+          <li>Ulcère gastroduodénal actif ou cirrhose</li>
+          <li>Plaquettes &lt;100, Hb &lt;100 g/L, ou INR &gt;1,5 hors anticoagulant</li>
+          <li>Anticoagulation + plusieurs médicaments à risque</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Calculateur du risque de saignement</h3>
+    <div class="calc">
+      <p class="lbl"><i class="ti ti-calculator"></i> Calculateur néo-zélandais bénéfice-risque de l'aspirine</p>
+      <p>Le calculateur néo-zélandais bénéfice-risque de l'aspirine (Selak et coll.) estime le risque sur 5 ans d'un premier événement cardiovasculaire et d'un saignement majeur, avec et sans aspirine, quantifiant le bénéfice ou le préjudice net de l'aspirine en prévention primaire pour appuyer la décision partagée. Il provient de modèles de Cox à risques proportionnels propres au sexe, bâtis sur une cohorte contemporaine de soins primaires néo-zélandaise de plus de 385 000 personnes sans maladie cardiovasculaire établie, et tient compte des médicaments concomitants et des comorbidités. À noter que les données sous-jacentes sont néo-zélandaises et pourraient ne pas se généraliser pleinement ailleurs.</p>
+      <p style="margin-top:12px;"><i class="ti ti-external-link" style="vertical-align:-2px"></i> <a href="https://aspirinbenefitharmcalculator.shinyapps.io/calculator/">aspirinbenefitharmcalculator.shinyapps.io/calculator</a></p>
+      <ul class="bands">
+        <li><i class="ti ti-circle-x dot-red"></i> <strong>Préjudice net</strong> &mdash; l'excès de saignements majeurs l'emporte sur les événements CV évités : prudence ou éviter l'aspirine.</li>
+        <li><i class="ti ti-circle-half-2 dot-amber"></i> <strong>Net neutre / marginal</strong> &mdash; décision partagée, en pesant le bénéfice de chimioprévention du CCR propre à Lynch avec l'estimation CV.</li>
+        <li><i class="ti ti-circle-check dot-teal"></i> <strong>Bénéfice net</strong> &mdash; les événements CV évités l'emportent sur l'excès de saignements : aspirine généralement favorable.</li>
+      </ul>
+    </div>
+    <div class="clinical">
+      <p>Comme cet outil estime le bénéfice-risque cardiovasculaire plutôt que le bénéfice propre au cancer, dans le syndrome de Lynch la réduction du risque de cancer colorectal doit être considérée comme un bénéfice additionnel s'ajoutant au résultat du calculateur lors de la recommandation finale.</p>
+    </div>
+  </section>
+
+  <!-- 9 COUNSELLING -->
+  <section id="fr-counselling">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Conseil génétique</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-users-group"></i> En parler à votre famille</p>
+      <p>Comme le syndrome de Lynch est héréditaire, vos proches pourraient eux aussi bénéficier d'un test &mdash; c'est ce qu'on appelle le test en cascade. Le conseil aborde aussi les options de planification familiale si vous souhaitez les explorer, et la mise à jour de vos antécédents familiaux pour que votre plan demeure adapté au fil du temps.</p>
+    </div>
+    <div class="clinical">
+      <p>Offrir le conseil génétique au moment du diagnostic et à tous les proches à risque (test en cascade). Discuter des options de reproduction, dont le DPI-M pour les variants pathogènes connus. Discuter du test du conjoint pour le risque de déficit constitutionnel de réparation des mésappariements (CMMRD). Tenir à jour les arbres généalogiques familiaux et réévaluer le risque si de nouveaux cancers surviennent ou si les antécédents familiaux évoluent. [1, 2]</p>
+    </div>
+  </section>
+
+  <!-- 10 LIFESTYLE -->
+  <section id="fr-lifestyle">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Habitudes de vie et nutrition</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-salad"></i> La prévention au quotidien</p>
+      <p>Ce que vous mangez et votre mode de vie font une réelle différence. Un régime de type méditerranéen, l'activité physique régulière, un bon sommeil, l'absence de tabac, l'évitement de l'alcool et quelques suppléments bien choisis réduisent tous le risque de cancer de l'intestin et soutiennent la santé globale.</p>
+    </div>
+
+    <div class="clinical">
+      <p>Adopter un régime de type méditerranéen riche en légumes, fruits, légumineuses, noix, bons gras (surtout l'huile d'olive) et poisson. Privilégier les aliments entiers d'origine végétale et les aliments riches en probiotiques comme les légumes fermentés, le yogourt, le kéfir et le kombucha.</p>
+      <p>Éviter les cancérogènes alimentaires : viande rouge, charcuteries contenant des nitrates/nitrites, et aliments fumés, grillés au barbecue, frits ou très cuits au four. Éviter les sucres ajoutés, les boissons sucrées et les glucides raffinés. Éviter l'alcool, un facteur de risque établi du cancer colorectal et de plusieurs autres cancers; il n'y a pas de seuil clairement sûr, donc l'abstinence est l'objectif.</p>
+      <p>Maintenir une composition corporelle optimale. Optimisation circadienne : encourager une alimentation à horaire restreint en début de journée (fenêtre de 10&ndash;12 h, p. ex. 8 h&ndash;18 h); envisager une fenêtre de 6&ndash;8 h si la perte de poids est un objectif. [14-17] Pratiquer au moins 150 minutes par semaine d'activité d'intensité modérée. Éviter le tabac. Prioriser le sommeil et la gestion du stress.</p>
+    </div>
+
+    <h3>Suppléments</h3>
+    <ul class="ticks">
+      <li><i class="ti ti-droplet"></i> <strong>Acides gras oméga-3</strong> &mdash; 2&ndash;3 g/jour d'EPA + DHA; mesurer l'indice oméga-3 de départ. [18]</li>
+      <li><i class="ti ti-sun"></i> <strong>Vitamine D et calcium</strong> &mdash; viser une 25(OH)D sérique de 125 nmol/L (50 ng/mL); calcium total de 1000&ndash;1200 mg/jour, citrate de calcium si l'alimentation est insuffisante.</li>
+      <li><i class="ti ti-plant-2"></i> <strong>Fibres</strong> &mdash; au moins 25&ndash;35 g/jour pour réduire le risque de cancer colorectal.</li>
+    </ul>
+  </section>
+
+  <!-- 11 MICROBIOME -->
+  <section id="fr-microbiome">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Microbiome et santé intestinale</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-bacteria"></i> Les bactéries de votre intestin</p>
+      <p>L'ensemble des bactéries qui vivent dans votre intestin peut influencer le risque de cancer. Traiter une bactérie de l'estomac appelée <i>H. pylori</i>, manger plus de fibres et d'aliments fermentés, et une bonne hygiène buccale aident tous à faire pencher l'équilibre vers des bactéries protectrices.</p>
+    </div>
+
+    <h4>Contexte</h4>
+    <div class="clinical">
+      <p>Le microbiome intestinal influence le développement du cancer colorectal par l'inflammation, la régulation immunitaire et le métabolisme de composés alimentaires et de l'hôte. La dysbiose est associée à une augmentation d'espèces pro-cancérogènes comme Fusobacterium nucleatum, Escherichia coli (porteur de l'îlot génomique pks) et Bacteroides fragilis entérotoxinogène, qui peuvent favoriser les dommages à l'ADN, l'inflammation chronique et l'évasion immunitaire. Une réduction des producteurs bénéfiques d'acides gras à chaîne courte comme Faecalibacterium prausnitzii peut altérer l'intégrité de la barrière muqueuse. Ces associations sont de plus en plus reconnues comme des biomarqueurs de risque et des cibles potentielles de prévention.</p>
+    </div>
+
+    <div class="rec">
+      <span class="rlbl">Recommandation &mdash; H. pylori (le seul test offert en clinique)</span>
+      Rechercher <i>H. pylori</i> tous les 2&ndash;4 ans dans le cadre de la surveillance digestive haute et traiter l'infection confirmée. Deux schémas de première intention de 14 jours sont utilisés : la <strong>trithérapie à la clarithromycine</strong> (clarithromycine, amoxicilline, IPP) et la <strong>quadrithérapie au bismuth</strong> (bismuth, métronidazole, tétracycline, IPP). Comme la résistance croissante à la clarithromycine (désormais &gt;30 % dans plusieurs régions) a érodé l'efficacité de la trithérapie à environ 75&ndash;85 %, tandis que la quadrithérapie au bismuth optimisée atteint une éradication plus élevée (environ 85&ndash;95 %), les lignes directrices de l'ACG de 2024 privilégient désormais la quadrithérapie au bismuth comme option de première intention, surtout là où la résistance est élevée ou inconnue. Confirmer l'éradication au moins 4 semaines après les antibiotiques (et 2 semaines après l'arrêt de l'IPP) au moyen d'un <strong>test d'antigène fécal ou d'un test respiratoire à l'urée</strong> plutôt que la sérologie.
+    </div>
+
+    <div class="calc">
+      <p class="lbl"><i class="ti ti-flask"></i> Une note sur les tests du microbiome</p>
+      <p>Plusieurs microbes intestinaux ont été liés en recherche au cancer colorectal &mdash; dont Escherichia coli pks&#8314; (produit la génotoxine colibactine), Bacteroides fragilis entérotoxinogène et Fusobacterium nucleatum. Cependant, <strong>il n'existe pas de test clinique validé pour ces organismes à l'heure actuelle</strong>, et leur détection n'a pas encore de voie de prise en charge éprouvée et concrète. Certains tests du microbiome privés ou directs au consommateur peuvent les rapporter, mais ils ne sont pas validés cliniquement pour le risque de cancer. Les patients intéressés par de tels tests devraient en discuter les options, et leurs limites, avec leur médecin. En revanche, <strong>le test de H. pylori est offert et validé en clinique</strong>, et c'est le seul test lié au microbiome recommandé ici.</p>
+    </div>
+
+    <div class="clinical">
+      <p>Les mesures générales favorables à l'intestin demeurent raisonnables, indépendamment des tests : augmenter les fibres alimentaires, inclure des aliments prébiotiques et riches en polyphénols, maintenir une bonne hygiène buccale et utiliser les antibiotiques judicieusement.</p>
+    </div>
+  </section>
+
+  <!-- 12 PATIENTS WITH CANCER + IMMUNOTHERAPY -->
+  <section id="fr-cancer">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">Patients atteints de cancer : microbiome et immunothérapie</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-vaccine"></i> Si vous êtes traité pour un cancer</p>
+      <p>Les cancers liés au syndrome de Lynch répondent souvent très bien à l'immunothérapie. Des données de plus en plus nombreuses montrent qu'un microbiome intestinal sain peut aider l'immunothérapie à mieux fonctionner. Bien que ce domaine évolue encore, soutenir votre intestin avec des fibres, des aliments fermentés et éviter les antibiotiques inutiles est raisonnable et sécuritaire en parallèle de votre traitement du cancer.</p>
+    </div>
+
+    <h4>Pourquoi cela compte dans le syndrome de Lynch</h4>
+    <div class="clinical">
+      <p>Les cancers associés à Lynch sont généralement déficients en réparation des mésappariements et à instabilité microsatellitaire élevée (MSI-H), un phénotype fortement sensible aux inhibiteurs de point de contrôle immunitaire (ICI) comme les anti-PD-1 et anti-CTLA-4. Comme beaucoup de patients atteints du syndrome de Lynch qui développent un cancer seront candidats à l'immunothérapie, l'influence du microbiome sur l'efficacité des ICI est particulièrement pertinente pour cette population.</p>
+      <p>Le microbiome intestinal module la réponse immunitaire au cancer et influence l'efficacité des ICI. Des commensaux comme Akkermansia muciniphila, les espèces de Bifidobacterium et Faecalibacterium prausnitzii sont associés à de meilleures réponses aux ICI en améliorant la présentation des antigènes, en favorisant l'infiltration des lymphocytes T et en modulant l'inflammation systémique. À l'inverse, la dysbiose ou des antibiotiques à large spectre récents peuvent atténuer l'efficacité. La transplantation de microbiote fécal de répondeurs vers des souris sans germes restaure la sensibilité aux points de contrôle, ce qui appuie un rôle causal. Les probiotiques, prébiotiques, l'alimentation et la TMF sont à l'étude comme adjuvants.</p>
+    </div>
+
+    <div class="rec">
+      <span class="rlbl">Optimisation pratique avant / pendant l'immunothérapie</span>
+      Privilégier une alimentation riche en fibres, axée sur les végétaux, et des aliments fermentés riches en probiotiques (yogourt, kéfir, choucroute, kimchi, kombucha). Soutenir les taxons bénéfiques comme Akkermansia muciniphila par les fibres alimentaires et les aliments riches en polyphénols. Éviter les antibiotiques inutiles, qui peuvent réduire la diversité microbienne et nuire à la réponse aux ICI. Coordonner avec l'équipe d'oncologie traitante.
+    </div>
+    <div class="calc">
+      <p class="lbl"><i class="ti ti-info-circle"></i> Ce qui est établi et ce qui ne l'est pas</p>
+      <p>Les mesures diététiques et de bon usage des antibiotiques sont à faible risque et raisonnables. Les interventions ciblées comme des probiotiques précis ou la TMF pour améliorer l'immunothérapie sont <strong>expérimentales</strong> et devraient se faire dans le cadre d'essais cliniques ou sous supervision spécialisée, et non comme soins de routine. Il n'existe pas, à l'heure actuelle, de test clinique validé du microbiome pour guider ces choix.</p>
+    </div>
+  </section>
+
+  <!-- 13 EMERGING -->
+  <section id="fr-emerging">
+    <div class="sec-head"><span class="sec-num">13</span><h2 class="sec-title">Prévention émergente et expérimentale</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-flask-2"></i> À l'horizon</p>
+      <p>La recherche explore activement de nouvelles façons de prévenir les cancers liés à Lynch. Les approches ci-dessous sont prometteuses mais ne sont pas encore des soins standards. Demandez à votre médecin si des essais cliniques en cours pourraient vous convenir.</p>
+    </div>
+
+    <div class="emerging">
+      <p class="lbl"><i class="ti ti-vaccine"></i> Vaccins préventifs contre le cancer</p>
+      <p>Comme les tumeurs déficientes en MMR génèrent des néoantigènes partagés et prévisibles (issus de peptides à décalage du cadre de lecture), les stratégies vaccinales visent à amorcer le système immunitaire pour reconnaître et éliminer les cellules précancéreuses chez les porteurs de Lynch. Des essais de phase précoce de vaccins à peptides à décalage du cadre de lecture sont en cours; c'est expérimental et réservé aux essais à l'heure actuelle.</p>
+    </div>
+    <div class="emerging">
+      <p class="lbl"><i class="ti ti-pill"></i> Optimisation de l'aspirine et d'autres agents</p>
+      <p>L'essai CaPP3 a affiné la posologie de l'aspirine vers la plus faible dose efficace. Des travaux en cours portent sur la durée optimale et sur l'apport éventuel d'autres agents anti-inflammatoires ou métaboliques. Le naproxène et d'autres AINS ont été étudiés comme chimiopréventifs de rechange dans des essais précoces.</p>
+    </div>
+    <div class="emerging">
+      <p class="lbl"><i class="ti ti-bacteria"></i> Prévention ciblant le microbiome</p>
+      <p>Moduler les microbes pro-cancérogènes (p. ex. E. coli pks&#8314;, B. fragilis entérotoxinogène, F. nucleatum) par l'alimentation, des antimicrobiens ciblés ou des biothérapies vivantes est un domaine de recherche actif. Aucun test ni intervention clinique validé n'existe encore; cela demeure expérimental.</p>
+    </div>
+    <div class="emerging">
+      <p class="lbl"><i class="ti ti-dna-2"></i> Oméga-3 et chimioprévention nutritionnelle</p>
+      <p>L'essai COLYNE évalue les oméga-3 à dose modérée (EPA + DHA) pour la prévention du cancer colorectal spécifiquement dans le syndrome de Lynch. Les résultats préciseront si la supplémentation nutritionnelle a un rôle préventif défini. [18]</p>
+    </div>
+    <div class="clinical">
+      <p>Aucune des approches ci-dessus ne devrait remplacer le dépistage, la chimioprévention ou la chirurgie de réduction du risque établis. Les patients intéressés par les options expérimentales devraient être orientés vers des essais cliniques appropriés ou en discuter l'inscription.</p>
+    </div>
+  </section>
+
+  <!-- 14 SUMMARY -->
+  <section id="fr-summary">
+    <div class="sec-head"><span class="sec-num">14</span><h2 class="sec-title">Résumé des recommandations</h2></div>
+    <div class="patient-card">
+      <p class="lbl"><i class="ti ti-clipboard-check"></i> Tout le plan sur une page</p>
+      <p>Le dépistage est résumé ci-dessous par gène, suivi des recommandations transversales qui s'appliquent à l'ensemble du syndrome de Lynch.</p>
+    </div>
+
+    <h4>Dépistage selon le sous-type de Lynch</h4>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <h5><i class="ti ti-dna-2"></i> MLH1</h5>
+        <p><span class="gene">Côlon :</span> coloscopie dès 20&ndash;25 ans, aux 1&ndash;2 ans.</p>
+        <p><span class="gene">Gynéco :</span> éducation + hystérectomie/SOB de réduction du risque après les grossesses (35&ndash;45 ans); échographie/biopsie facultatives.</p>
+        <p><span class="gene">Estomac :</span> gastroscopie + H. pylori à 30&ndash;35 ans, aux 2&ndash;4 ans.</p>
+        <p><span class="gene">Pancréas :</span> si parent au 1er degré atteint, dès 50 ans. <span class="gene">Prostate :</span> APS dès 40 ans.</p>
+        <p><span class="gene">Peau :</span> examen cutané complet annuel (Muir-Torre).</p>
+        <p><span class="gene">Urinaire/cerveau :</span> pas de dépistage de routine.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-dna-2"></i> MSH2 / EPCAM</h5>
+        <p><span class="gene">Côlon :</span> coloscopie dès 20&ndash;25 ans, aux 1&ndash;2 ans.</p>
+        <p><span class="gene">Gynéco :</span> éducation + hystérectomie/SOB de réduction du risque après les grossesses (35&ndash;45 ans); échographie/biopsie facultatives.</p>
+        <p><span class="gene">Estomac :</span> gastroscopie + H. pylori à 30&ndash;35 ans, aux 2&ndash;4 ans.</p>
+        <p><span class="gene">Urinaire :</span> analyse d'urine annuelle facultative et de données limitées dès 30&ndash;35 ans (propre à ce gène).</p>
+        <p><span class="gene">Pancréas :</span> si parent au 1er degré atteint, dès 50 ans. <span class="gene">Prostate :</span> APS dès 40 ans.</p>
+        <p><span class="gene">Peau :</span> examen cutané complet annuel &mdash; risque de Muir-Torre le plus élevé.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-dna-2"></i> MSH6</h5>
+        <p><span class="gene">Côlon :</span> coloscopie dès 30&ndash;35 ans, aux 1&ndash;3 ans (NCCN; risque plus faible et plus tardif).</p>
+        <p><span class="gene">Gynéco :</span> risque prédominant &mdash; forte éducation sur les saignements + hystérectomie/SOB de réduction du risque après les grossesses.</p>
+        <p><span class="gene">Estomac/urinaire :</span> pas de dépistage de routine sauf antécédents familiaux.</p>
+        <p><span class="gene">Peau/autres :</span> vigilance cutanée, biopsie des lésions sébacées; sinon selon les antécédents familiaux et les symptômes.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-dna-2"></i> PMS2</h5>
+        <p><span class="gene">Côlon :</span> coloscopie dès 30&ndash;35 ans, aux 1&ndash;3 ans (NCCN).</p>
+        <p><span class="gene">Gynéco :</span> éducation + biopsie pour symptômes; hystérectomie individualisée. Risque ovarien non supérieur à la moyenne &mdash; ovariectomie/surveillance peuvent être différées.</p>
+        <p><span class="gene">Estomac/urinaire/autres :</span> pas de dépistage de routine sauf antécédents familiaux marqués. Peau : vigilance, biopsie des lésions sébacées.</p>
+      </div>
+    </div>
+
+    <h4 style="margin-top:26px;">Recommandations transversales</h4>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <h5><i class="ti ti-pill"></i> Chimioprévention par l'aspirine</h5>
+        <p>Faible dose d'aspirine du milieu de la vingtaine à la trentaine si tolérée; au Canada, 81 mg/jour (selon la non-infériorité de CaPP3).</p>
+        <p>Évaluer le bénéfice CV et le risque de saignement au moins annuellement avec le calculateur néo-zélandais, en ajoutant le bénéfice CCR propre à Lynch. Réévaluer selon l'âge et la durée; données les plus solides ~2&ndash;5 ans. Éviter en cas de risque hémorragique élevé.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-stethoscope"></i> Chirurgie de réduction du risque et THS</h5>
+        <p>Hystérectomie + SOB après les grossesses pour MLH1/MSH2. MSH6 : hystérectomie raisonnable; données insuffisantes pour la SOB (NCCN). PMS2 : individualisé; ovariectomie pouvant être différée.</p>
+        <p>THS après une SOB préménopausique (œstrogène seul si pas d'utérus) sauf cancer hormonosensible; individualiser avec l'oncologie en cas d'antécédent de cancer.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-users-group"></i> Conseil génétique</h5>
+        <p>Offrir au diagnostic et aux proches à risque (test en cascade).</p>
+        <p>Discuter du DPI-M, du test du conjoint (risque de CMMRD) et tenir à jour l'arbre généalogique.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-bacteria"></i> Microbiome</h5>
+        <p>Le test de H. pylori aux 2&ndash;4 ans est le seul test du microbiome offert en clinique; éradiquer si positif.</p>
+        <p>Aucun test clinique validé pour E. coli pks&#8314;, B. fragilis entérotoxinogène ou F. nucleatum; les tests privés ne sont pas validés &mdash; en discuter avec le médecin.</p>
+      </div>
+      <div class="sum-card">
+        <h5><i class="ti ti-salad"></i> Habitudes de vie, alimentation et suppléments</h5>
+        <p>Régime méditerranéen; éviter viandes rouges/charcuteries, sucres ajoutés, alcool. Alimentation à horaire restreint en début de journée; activité &ge;150 min/semaine; pas de tabac.</p>
+        <p>Oméga-3 2&ndash;3 g/jour; vitamine D cible 125 nmol/L; calcium 1000&ndash;1200 mg/jour; fibres 25&ndash;35 g/jour.</p>
+      </div>
+      <div class="sum-card purple">
+        <h5><i class="ti ti-flask-2"></i> Émergent / expérimental</h5>
+        <p>Vaccins préventifs à peptides à décalage du cadre de lecture, prévention ciblant le microbiome et oméga-3 (COLYNE) sont à l'étude.</p>
+        <p>Réservé aux essais; ne remplace pas les soins établis. Orienter les patients intéressés vers des essais cliniques.</p>
+      </div>
+      <div class="sum-card purple span">
+        <h5><i class="ti ti-vaccine"></i> Patients atteints de cancer &mdash; immunothérapie et microbiome</h5>
+        <p>Les cancers de Lynch sont généralement MSI-H et très sensibles aux inhibiteurs de point de contrôle immunitaire. Soutenir le microbiome intestinal par une alimentation riche en fibres et axée sur les végétaux et des aliments fermentés, et éviter les antibiotiques inutiles, qui peuvent nuire à la réponse. Les probiotiques ciblés ou la TMF pour améliorer l'immunothérapie sont expérimentaux et réservés aux essais. Coordonner avec l'oncologie.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <section id="fr-refs">
+    <div class="sec-head"><span class="sec-num">15</span><h2 class="sec-title">Références</h2></div>
+    <ol class="refs">
+      <li>Hodan R, et al. Genetic/Familial High-Risk Assessment: Colorectal, Endometrial, and Gastric, Version 3.2024, NCCN Clinical Practice Guidelines in Oncology. J Natl Compr Canc Netw. 2024;22(10):695&ndash;711.</li>
+      <li>Novotn&yacute; J, et al. Guidelines for clinical practice for carriers of germline mutations in the Lynch syndrome predisposition genes MLH1, MSH2, MSH6, PMS2 and large deletions of EPCAM (4.2024). Klin Onkol. 2024;37(5):384&ndash;389.</li>
+      <li>Burn J, et al. Cancer prevention with aspirin in hereditary colorectal cancer (Lynch syndrome), 10-year follow-up and registry-based 20-year data in the CAPP2 study: a double-blind, randomised, placebo-controlled trial. Lancet. 2020;395(10240):1855&ndash;1863.</li>
+      <li>Chen B, et al. Contribution of pks(+) E. coli mutations to colorectal carcinogenesis. Nat Commun. 2023;14(1):7827.</li>
+      <li>Cornish AJ, et al. The genomic landscape of 2,023 colorectal cancers. Nature. 2024;633(8028):127&ndash;136.</li>
+      <li>Pleguezuelos-Manzano C, et al. Mutational signature in colorectal cancer caused by genotoxic pks+ E. coli. Nature. 2020;580(7802):269&ndash;273.</li>
+      <li>Jasemi S, et al. Biological Mechanisms of Enterotoxigenic Bacteroides fragilis Toxin: Linking Inflammation, Colorectal Cancer, and Clinical Implications. Toxins (Basel). 2025;17(6).</li>
+      <li>Malfertheiner P, et al. Management of Helicobacter pylori infection: the Maastricht VI/Florence consensus report. Gut. 2022.</li>
+      <li>Matson V, et al. The commensal microbiome is associated with anti-PD-1 efficacy in metastatic melanoma patients. Science. 2018;359(6371):104&ndash;108.</li>
+      <li>Routy B, et al. Gut microbiome influences efficacy of PD-1-based immunotherapy against epithelial tumors. Science. 2018;359(6371):91&ndash;97.</li>
+      <li>Gopalakrishnan V, et al. Gut microbiome modulates response to anti-PD-1 immunotherapy in melanoma patients. Science. 2018;359(6371):97&ndash;103.</li>
+      <li>Scuto M, et al. Microplastics as Emerging Contaminants and Human Health: Exploring Functional Nutrition in Gastric-Colon-Brain Axis Cancer. Toxics. 2025;13(6).</li>
+      <li>Chartres N, et al. Effects of Microplastic Exposure on Human Digestive, Reproductive, and Respiratory Health: A Rapid Systematic Review. Environ Sci Technol. 2024;58(52):22843&ndash;22864.</li>
+      <li>Chaix A, et al. Time-Restricted Eating to Prevent and Manage Chronic Metabolic Diseases. Annu Rev Nutr. 2019;39:291&ndash;315.</li>
+      <li>Manoogian ENC, et al. Time-restricted Eating for the Prevention and Management of Metabolic Diseases. Endocr Rev. 2022;43(2):405&ndash;436.</li>
+      <li>Sun JC, et al. Time-restricted eating with calorie restriction on weight loss and cardiometabolic risk: a systematic review and meta-analysis. Eur J Clin Nutr. 2023;77(11):1014&ndash;1025.</li>
+      <li>Jamshed H, et al. Effectiveness of Early Time-Restricted Eating for Weight Loss, Fat Loss, and Cardiometabolic Health in Adults With Obesity: A Randomized Clinical Trial. JAMA Intern Med. 2022;182(9):953&ndash;962.</li>
+      <li>Choucair K, et al. Phase II trial of moderate dose omega-3 acid ethyl esters for colorectal cancer prevention in patients with Lynch syndrome (COLYNE). J Clin Oncol. 2022;40(4_suppl):TPS209.</li>
+      <li>Burn J, et al. CaPP3: a randomised, double-blind, dose non-inferiority trial of daily aspirin (600 mg vs 300 mg vs 75&ndash;100 mg) for cancer prevention in Lynch syndrome. Results reported 2025; low dose (75&ndash;100 mg) non-inferior to higher doses with fewer adverse events.</li>
+    </ol>
+  </section>
+
+  <p class="footer-note">
+    Ce protocole vise à soutenir, et non à remplacer, le jugement clinique individualisé et la décision partagée. Les recommandations doivent être appliquées en tenant compte du gène de chaque patient, de ses antécédents personnels et familiaux et des lignes directrices locales. Les estimations de risque propres au gène sont approximatives et évolutives. Le calculateur néo-zélandais bénéfice-risque de l'aspirine provient d'une cohorte de soins primaires néo-zélandaise et pourrait ne pas se généraliser pleinement à d'autres populations. Les approches émergentes et expérimentales ne sont pas des soins standards et devraient être poursuivies dans le cadre d'essais cliniques.
+  </p>
+
+  </div>
 </div>
+
+<script>
+  function setLang(l){
+    var en = document.getElementById('lang-en');
+    var fr = document.getElementById('lang-fr');
+    var be = document.getElementById('btn-en');
+    var bf = document.getElementById('btn-fr');
+    if(l === 'fr'){
+      en.hidden = true; fr.hidden = false;
+      bf.classList.add('active'); be.classList.remove('active');
+      document.documentElement.lang = 'fr';
+    } else {
+      fr.hidden = true; en.hidden = false;
+      be.classList.add('active'); bf.classList.remove('active');
+      document.documentElement.lang = 'en';
+    }
+  }
+</script>
 </body>
 </html>
